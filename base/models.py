@@ -33,3 +33,21 @@ class Archivo(models.Model):
 
     def __str__(self):
         return self.nombre
+
+@python_2_unicode_compatible
+class Participante(models.Model):
+    nombre = models.CharField(max_length=255)
+    def __str__(self):
+        return self.nombre
+
+@python_2_unicode_compatible
+class Agenda(models.Model):
+    dirige = models.ForeignKey(Participante)
+    junto_con = models.TextField()
+    fecha_hora = models.DateTimeField()
+    asunto = models.TextField()
+    lugar = models.CharField(max_length=255)
+    creado_por = models.ForeignKey(User)
+
+    def __str__(self):
+        return self.asunto
