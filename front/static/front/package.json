@@ -1,0 +1,22 @@
+{
+  "name": "egemsa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "stylus": "stylus ./source/styles.styl -c -o ./css/styles.css",
+    "js": "uglifyjs ./source/scripts.js -c -o ./js/scripts.js",
+    "watch:css": "onchange ./source/styles.styl -- npm run stylus",
+    "watch:js": "onchange ./source/scripts.js -- npm run js",
+    "watch": "npm-run-all --parallel watch:*"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "npm-run-all": "^4.0.2",
+    "onchange": "^3.2.1",
+    "stylus": "^0.54.5",
+    "uglify-js": "^3.0.24"
+  },
+  "dependencies": {}
+}

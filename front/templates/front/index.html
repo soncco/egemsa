@@ -1,0 +1,45 @@
+{% extends "front/base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Categorías</h2>
+            <div class="row">
+                {% for categoria in categorias %}
+                    <div class="col-md-4">
+                        <div class="categoria">
+                            <h4>{{ categoria.nombre }}</h4>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="col-md-4">
+                    <div class="categoria">
+                        <h4>Actividades oficiales</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2>Últimos documentos</h2>
+            <ul class="list-unstyled">
+            {% for documento in documentos %}
+                <li>{{documento.nombre}}</li>
+            {% empty %}
+                <li>No existen documentos</li>
+            {% endfor %}
+            </ul>
+
+            <hr>
+
+            <h2>Agenda de hoy</h2>
+            <ul class="list-unstyled">
+            {% for agenda in agendas %}
+                <li>{{agenda.asunto}}</li>
+            {% empty %}
+                <li>No existen eventos</li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block title %}Inicio{% endblock title %}
