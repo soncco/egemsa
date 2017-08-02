@@ -49,17 +49,18 @@ today_start = datetime.combine(today, time())
 today_end = datetime.combine(tomorrow, time())
 class AgendaManager(models.Manager):
     def eventos_hoy(self):
-        agendas = self.filter(fecha_hora__lte=today_end, fecha_hora__gte=today_start)
+        agendas = self.filter(fecha_hora__lte=today_end, fecha_hora__gte=today_start).order_by('fecha_hora')
         return agendas
 
 
 @python_2_unicode_compatible
 class Agenda(models.Model):
+    asunto = models.CharField(max_length=255)
     dirige = models.ForeignKey(Participante)
     junto_con = models.TextField()
     fecha_hora = models.DateTimeField()
-    asunto = models.TextField()
     lugar = models.CharField(max_length=255, blank=True, null=True)
+    descripcion = RichTextField(null=True, blank=True)
     creado_por = models.ForeignKey(User)
 
     objects = models.Manager()

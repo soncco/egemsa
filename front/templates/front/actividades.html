@@ -1,0 +1,82 @@
+{% extends "front/base.html" %}
+{% load static %}
+{% block content %}
+    
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="col-md-1">Hora</th>
+                        <th>Asunto</th>
+                        <th>Lugar</th>
+                    </tr>
+                </thead>
+            {% for agenda in agendas %}
+                <tr>
+                    <td>{{agenda.fecha_hora|date:"h:i"}}</td>
+                    <td>{{agenda.asunto}}</td>
+                    <td>{{agenda.lugar}}</td>                   
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">No existen eventos para este día</td>
+                </tr>
+            {% endfor %}
+            </table>
+
+        </div>
+        <div class="col-md-4">
+            <div class="well">
+                <label for="datepicker">Fecha:</label>
+                <div class="input-group">
+
+                    <input type="text" class="form-control datepicker" id="datepicker" value="{{fecha|date:"d M Y"}}">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><i class="fa fa-arrow-right"></i></button>
+                    </span>
+                </div>
+            </div>
+            <h3>Ver agenda organizada por</h3>
+            <ul>
+                {% for participante in participantes %}
+                    <li><a href="">{{ participante.nombre }}</a></li>
+                {% endfor %}
+            </ul>
+
+            <h3>Otras categorías</h3>
+            <ul>
+                {% for cat in categorias %}
+                    <li><a href="{% url 'front:categoria' cat.slug %}">{{ cat.nombre }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block title %}Actividades oficiales{% endblock title %}
+
+{% block page %}Actividades oficiales{% endblock page %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:index" %}"><span itemprop="name">Inicio</span></a>
+        <meta itemprop="position" content="1">
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
+        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:actividades" %}" class="hidden"><span itemprop="name">Actividades oficiales</span></a>
+        Actividades oficiales
+        <meta itemprop="position" content="2">
+      </li>
+    </ol>
+{% endblock breadcrumb %}
+
+{% block js %}
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="{% static "front/js/datepicker.js" %}"></script>
+{% endblock js %}
+
+{% block css %}
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock css %}

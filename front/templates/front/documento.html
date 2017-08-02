@@ -3,7 +3,7 @@
     
     <div class="row">
         <div class="col-md-8">
-           <p><span class="fecha"><i class="fa fa-calendar"></i> Publicado el {{documento.fecha|date:"d/m/Y"}}</span></p>
+           <p><span class="fecha"><i class="fa fa-calendar"></i> Publicado el {{documento.fecha|date:"d M Y"}}</span></p>
 
            <div class="documento-desc">
              {{documento.descripcion|safe}}
@@ -14,15 +14,15 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>Archivo</th>
                 <th>Nombre</th>
+                <th>Archivo</th>
               </tr>
             </thead>
             <tbody>
             {% for archivo in documento.archivo_set.all %}
               <tr>
-                <td></td>
                 <td>{{archivo.nombre}}</td>
+                <td><a href="{{archivo.archivo.url}}"><i class="fa fa-file-o"></i> {{archivo.archivo}}</a></td>
               </tr>
             {% endfor %}
             </tbody>
@@ -32,8 +32,16 @@
         </div>
         <div class="col-md-4">
             <h3>Últimos documentos en {{documento.categoria.nombre}}</h3>
-            <ul>
-                
+            <ul class="list-unstyled">
+            {% for documento in documentos %}
+                <li class="documento-lista">
+                    <a href="{% url 'front:documento' documento.id %}">{{documento.nombre}}</a> <br>
+                    <span class="categoria"><i class="fa fa-tag"></i> {{documento.categoria.nombre}}</span> <br>
+                    <span class="fecha"><i class="fa fa-calendar"></i> {{documento.fecha|date:"d M Y"}}</span>
+                </li>
+            {% empty %}
+                <li>No existen documentos</li>
+            {% endfor %}
             </ul>
         </div>
     </div>
@@ -44,9 +52,19 @@
 {% block page %}{{documento.nombre}}{% endblock page %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb">
-      <li><a href="{% url "front:index" %}">Inicio</a></li>
-      <li><a href="{% url "front:categoria" documento.categoria.slug %}">{{documento.categoria.nombre}}</a></li>
-      <li class="active">{{documento.nombre}}</li>
+    <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:index" %}"><span itemprop="name">Inicio</span></a>
+        <meta itemprop="position" content="1">
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
+        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" documento.categoria.slug %}"><span itemprop="name">{{documento.categoria.nombre}}</span></a>
+        <meta itemprop="position" content="2">
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
+        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:documento" documento.id %}" class="hidden"><span itemprop="name">{{documento.nombre}}</span></a>
+        {{documento.nombre}}
+        <meta itemprop="position" content="3">
+      </li>
     </ol>
 {% endblock breadcrumb %}

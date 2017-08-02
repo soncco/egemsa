@@ -5,7 +5,9 @@ from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 
-from base.models import Categoria, Documento, Agenda
+from base.models import Categoria, Documento, Agenda, Participante
+
+from datetime import datetime
 
 
 def index(request):
@@ -39,5 +41,25 @@ def categoria(request, slug):
 def documento(request, id):
     documento = Documento.objects.get(pk = id)
 
-    context = {'documento': documento}
+    documentos = Documento.objects.filter(categoria = documento.categoria)
+    documentos = documentos.filter(~Q(pk = documento.pk))[:5]
+
+    context = {'documento': documento, 'documentos': documentos}
     return render(request, 'front/documento.html', context)
+
+
+def actividades(request):
+    categorias = Categoria.objects.all()
+
+    participantes = Participante.objects.all()
+
+    participante = participantes[:1]
+
+    agendas = Agenda.hoy.eventos_hoy().filter(dirige = participante)
+
+    today = datetime.now().date()
+
+    fecha = request.GET.get('fecha', today)
+
+    context = {'categorias': categorias, 'agendas': agendas, 'fecha': fecha, 'participantes': participantes}
+    return render(request, 'front/actividades.html', context)

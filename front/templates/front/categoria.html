@@ -8,7 +8,7 @@
                 <li class="documento-lista">
                     <a href="{% url 'front:documento' documento.id %}">{{documento.nombre}}</a> <br>
                     <span class="fecha"><i class="fa fa-tag"></i> {{documento.categoria.nombre}}</span> <br>
-                    <span class="categoría"><i class="fa fa-calendar"></i> {{documento.fecha|date:"d/m/Y"}}</span> 
+                    <span class="categoría"><i class="fa fa-calendar"></i> {{documento.fecha|date:"d M Y"}}</span> 
                 </li>
             {% empty %}
                 <li>No existen documentos</li>
@@ -44,6 +44,7 @@
                 {% for cat in categorias %}
                     <li><a href="{% url 'front:categoria' cat.slug %}">{{ cat.nombre }}</a></li>
                 {% endfor %}
+                <li><a href="{% url 'front:actividades' %}">Actividades oficiales</a></li>
             </ul>
         </div>
     </div>
@@ -54,8 +55,15 @@
 {% block page %}Documentos en {{categoria.nombre}}{% endblock page %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb">
-      <li><a href="{% url "front:index" %}">Inicio</a></li>
-      <li class="active">Documentos en {{categoria.nombre}}</li>
+    <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:index" %}"><span itemprop="name">Inicio</span></a>
+        <meta itemprop="position" content="1">
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
+        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}" class="hidden"><span itemprop="name">Documentos en {{categoria.nombre}}</span></a>
+        Documentos en {{categoria.nombre}}
+        <meta itemprop="position" content="2">
+      </li>
     </ol>
 {% endblock breadcrumb %}

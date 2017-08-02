@@ -14,7 +14,7 @@
                 {% endfor %}
                 <div class="col-md-4">
                     <div class="categoria">
-                        <h4>Actividades oficiales</h4>
+                        <h4><a href="{% url 'front:actividades' %}">Actividades oficiales</a></h4>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <li class="documento-lista">
                     <a href="{% url 'front:documento' documento.id %}">{{documento.nombre}}</a> <br>
                     <span class="categoria"><i class="fa fa-tag"></i> {{documento.categoria.nombre}}</span> <br>
-                    <span class="fecha"><i class="fa fa-calendar"></i> {{documento.fecha|date:"d/m/Y"}}</span>
+                    <span class="fecha"><i class="fa fa-calendar"></i> {{documento.fecha|date:"d M Y"}}</span>
                 </li>
             {% empty %}
                 <li>No existen documentos</li>
@@ -53,3 +53,15 @@
 {% block title %}Portal de Transparencia{% endblock title %}
 
 {% block page %}Portal de Transparencia{% endblock page %}
+
+{% block schema %}
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            "name": "Transparencia EGEMSA",
+            "url": "http://egemsa.soncco.com"
+        }
+
+    </script>
+{% endblock schema %}
