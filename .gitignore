@@ -56,3 +56,4 @@ node_modules
 bower_components
 */migrations/*
 *.xlsx
+static

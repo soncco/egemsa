@@ -1,0 +1,61 @@
+{% extends "front/base.html" %}
+{% block content %}
+    
+    <div class="row">
+        <div class="col-md-8">
+            <ul class="list-unstyled">
+            {% for documento in documentos %}
+                <li class="documento-lista">
+                    <a href="{{documento.id}}">{{documento.nombre}}</a> <br>
+                    <span class="fecha"><i class="fa fa-tag"></i> {{documento.categoria.nombre}}</span> <br>
+                    <span class="categoría"><i class="fa fa-calendar"></i> {{documento.fecha|date:"d/m/Y"}}</span> 
+                </li>
+            {% empty %}
+                <li>No existen documentos</li>
+            {% endfor %}
+            </ul>
+
+            {% if documentos.has_other_pages %}
+              <ul class="pagination">
+                {% if documentos.has_previous %}
+                  <li><a href="?page={{ documentos.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                  <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for i in documentos.paginator.page_range %}
+                  {% if documentos.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(actual)</span></span></li>
+                  {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% if documentos.has_next %}
+                  <li><a href="?page={{ documentos.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                  <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+              </ul>
+            {% endif %}
+
+        </div>
+        <div class="col-md-4">
+            <h3>Otras categorías</h3>
+            <ul>
+                {% for cat in categorias %}
+                    <li><a href="{% url 'front:categoria' cat.slug %}">{{ cat.nombre }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block title %}Documentos en {{categoria.nombre}}{% endblock title %}
+
+{% block page %}Documentos en {{categoria.nombre}}{% endblock page %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+      <li><a href="{% url "front:index" %}">Inicio</a></li>
+      <li class="active">Documentos en {{categoria.nombre}}</li>
+    </ol>
+{% endblock breadcrumb %}

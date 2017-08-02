@@ -1,4 +1,5 @@
 {% extends "front/base.html" %}
+
 {% block content %}
     <div class="row">
         <div class="col-md-6">
@@ -7,7 +8,7 @@
                 {% for categoria in categorias %}
                     <div class="col-md-4">
                         <div class="categoria">
-                            <h4>{{ categoria.nombre }}</h4>
+                            <h4><a href="{% url 'front:categoria' categoria.slug %}">{{ categoria.nombre }}</a></h4>
                         </div>
                     </div>
                 {% endfor %}
@@ -22,7 +23,11 @@
             <h2>Últimos documentos</h2>
             <ul class="list-unstyled">
             {% for documento in documentos %}
-                <li>{{documento.nombre}}</li>
+                <li class="documento-lista">
+                    <a href="{{documento.id}}">{{documento.nombre}}</a> <br>
+                    <span class="fecha"><i class="fa fa-tag"></i> {{documento.categoria.nombre}}</span> <br>
+                    <span class="categoría"><i class="fa fa-calendar"></i> {{documento.fecha|date:"d/m/Y"}}</span> 
+                </li>
             {% empty %}
                 <li>No existen documentos</li>
             {% endfor %}
@@ -33,7 +38,10 @@
             <h2>Agenda de hoy</h2>
             <ul class="list-unstyled">
             {% for agenda in agendas %}
-                <li>{{agenda.asunto}}</li>
+                <li class="agenda-lista">
+                    <i class="fa fa-clock-o"></i> {{agenda.fecha_hora|date:"h:m"}} - <a href="{{agenda.id}}">{{agenda.asunto}}</a> <br>
+                    <span class="organiza"><i class="fa fa-user"></i> {{ agenda.dirige }}</span>
+                </li>
             {% empty %}
                 <li>No existen eventos</li>
             {% endfor %}
@@ -42,4 +50,6 @@
     </div>
 {% endblock content %}
 
-{% block title %}Inicio{% endblock title %}
+{% block title %}Portal de Transparencia{% endblock title %}
+
+{% block page %}Portal de Transparencia{% endblock page %}

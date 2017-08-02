@@ -8,6 +8,7 @@ from base.models import Categoria, Documento, Archivo, Participante, Agenda
 class CategoriaAdmin(admin.ModelAdmin):
     list_display = ('nombre',)
     search_fields = ['nombre',]
+    prepopulated_fields = {'slug': ('nombre',)}
 
 class ArchivoInline(admin.TabularInline):
     model = Archivo
