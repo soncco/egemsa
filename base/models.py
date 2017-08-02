@@ -32,7 +32,7 @@ class Documento(models.Model):
 class Archivo(models.Model):
     pertenece_a = models.ForeignKey(Documento)
     nombre = models.CharField(max_length=255)
-    archivo = models.FileField(upload_to='./static/archivos', max_length=255)
+    archivo = models.FileField(upload_to='', max_length=255)
 
     def __str__(self):
         return self.nombre

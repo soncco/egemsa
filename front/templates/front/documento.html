@@ -1,0 +1,52 @@
+{% extends "front/base.html" %}
+{% block content %}
+    
+    <div class="row">
+        <div class="col-md-8">
+           <p><span class="fecha"><i class="fa fa-calendar"></i> Publicado el {{documento.fecha|date:"d/m/Y"}}</span></p>
+
+           <div class="documento-desc">
+             {{documento.descripcion|safe}}
+           </div>
+
+          {% if documento.archivo_set.count != 0 %}
+          <h3>Archivos</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Archivo</th>
+                <th>Nombre</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for archivo in documento.archivo_set.all %}
+              <tr>
+                <td></td>
+                <td>{{archivo.nombre}}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          {% endif %}
+
+        </div>
+        <div class="col-md-4">
+            <h3>Últimos documentos en {{documento.categoria.nombre}}</h3>
+            <ul>
+                
+            </ul>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block title %}{{documento.nombre}}{% endblock title %}
+
+{% block page %}{{documento.nombre}}{% endblock page %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+      <li><a href="{% url "front:index" %}">Inicio</a></li>
+      <li><a href="{% url "front:categoria" documento.categoria.slug %}">{{documento.categoria.nombre}}</a></li>
+      <li class="active">{{documento.nombre}}</li>
+    </ol>
+{% endblock breadcrumb %}

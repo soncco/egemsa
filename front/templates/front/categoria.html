@@ -6,7 +6,7 @@
             <ul class="list-unstyled">
             {% for documento in documentos %}
                 <li class="documento-lista">
-                    <a href="{{documento.id}}">{{documento.nombre}}</a> <br>
+                    <a href="{% url 'front:documento' documento.id %}">{{documento.nombre}}</a> <br>
                     <span class="fecha"><i class="fa fa-tag"></i> {{documento.categoria.nombre}}</span> <br>
                     <span class="categoría"><i class="fa fa-calendar"></i> {{documento.fecha|date:"d/m/Y"}}</span> 
                 </li>

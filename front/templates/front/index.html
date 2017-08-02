@@ -24,9 +24,9 @@
             <ul class="list-unstyled">
             {% for documento in documentos %}
                 <li class="documento-lista">
-                    <a href="{{documento.id}}">{{documento.nombre}}</a> <br>
-                    <span class="fecha"><i class="fa fa-tag"></i> {{documento.categoria.nombre}}</span> <br>
-                    <span class="categoría"><i class="fa fa-calendar"></i> {{documento.fecha|date:"d/m/Y"}}</span> 
+                    <a href="{% url 'front:documento' documento.id %}">{{documento.nombre}}</a> <br>
+                    <span class="categoria"><i class="fa fa-tag"></i> {{documento.categoria.nombre}}</span> <br>
+                    <span class="fecha"><i class="fa fa-calendar"></i> {{documento.fecha|date:"d/m/Y"}}</span>
                 </li>
             {% empty %}
                 <li>No existen documentos</li>
@@ -39,7 +39,7 @@
             <ul class="list-unstyled">
             {% for agenda in agendas %}
                 <li class="agenda-lista">
-                    <i class="fa fa-clock-o"></i> {{agenda.fecha_hora|date:"h:m"}} - <a href="{{agenda.id}}">{{agenda.asunto}}</a> <br>
+                    <i class="fa fa-clock-o"></i> {{agenda.fecha_hora|date:"h:i"}} - <a href="{{agenda.id}}">{{agenda.asunto}}</a> <br>
                     <span class="organiza"><i class="fa fa-user"></i> {{ agenda.dirige }}</span>
                 </li>
             {% empty %}

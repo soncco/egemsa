@@ -34,3 +34,10 @@ def categoria(request, slug):
 
     context = {'categorias': categorias, 'categoria': categoria, 'documentos': documentos}
     return render(request, 'front/categoria.html', context)
+
+
+def documento(request, id):
+    documento = Documento.objects.get(pk = id)
+
+    context = {'documento': documento}
+    return render(request, 'front/documento.html', context)

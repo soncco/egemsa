@@ -124,3 +124,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = config('STATIC_ROOT')
+
+MEDIA_ROOT = '../static/archivos'
+MEDIA_URL = '/static/archivos/'
