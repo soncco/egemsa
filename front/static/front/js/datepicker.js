@@ -39,6 +39,8 @@
         changeMonth: true,
         changeYear: true,
         dateFormat: 'dd M yy',
+        altField: "#fecha",
+        altFormat: "@"
     });
 
     $('.datepicker').datepicker($.datepicker.regional['pl']);

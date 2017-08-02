@@ -1,7 +1,7 @@
 {% extends "front/base.html" %}
 {% load static %}
 {% block content %}
-    
+    <h3>{{actual.nombre}}</h3>
     <div class="row">
         <div class="col-md-8">
             <table class="table table-striped">
@@ -14,7 +14,7 @@
                 </thead>
             {% for agenda in agendas %}
                 <tr>
-                    <td>{{agenda.fecha_hora|date:"h:i"}}</td>
+                    <td><a href="{% url 'evento' agenda.pk %}">{{agenda.fecha_hora|date:"h:i"}}</a></td>
                     <td>{{agenda.asunto}}</td>
                     <td>{{agenda.lugar}}</td>                   
                 </tr>
@@ -28,19 +28,25 @@
         </div>
         <div class="col-md-4">
             <div class="well">
-                <label for="datepicker">Fecha:</label>
-                <div class="input-group">
-
-                    <input type="text" class="form-control datepicker" id="datepicker" value="{{fecha|date:"d M Y"}}">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button"><i class="fa fa-arrow-right"></i></button>
-                    </span>
-                </div>
+                <form action="{% url 'front:agenda' actual.pk %}" method="get">
+                    <label for="datepicker">Fecha actual:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control datepicker" id="datepicker" value="{{fecha|date:"d M Y"}}" required>
+                        <input type="hidden" name="fecha" value="{{fecha|date:"U"}}" id="fecha">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="fa fa-arrow-right"></i></button>
+                        </span>
+                    </div>
+                </form>
             </div>
             <h3>Ver agenda organizada por</h3>
             <ul>
                 {% for participante in participantes %}
-                    <li><a href="">{{ participante.nombre }}</a></li>
+                {% if actual.id == participante.id  %}
+                    <li class="lista-participante active">{{ participante.nombre }} </li>
+                {% else %}
+                    <li class="lista-participante"><a href="{% url 'front:agenda' participante.pk %}">{{ participante.nombre }}</a></li>                    
+                {% endif %}
                 {% endfor %}
             </ul>
 
@@ -65,9 +71,13 @@
         <meta itemprop="position" content="1">
       </li>
       <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
-        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:actividades" %}" class="hidden"><span itemprop="name">Actividades oficiales</span></a>
-        Actividades oficiales
+        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:actividades" %}"><span itemprop="name">Actividades oficiales</span></a>
         <meta itemprop="position" content="2">
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
+        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:agenda" actual.pk %}" class="hidden"><span itemprop="name">{{actual.nombre}}</span></a>
+        {{ actual.nombre }}
+        <meta itemprop="position" content="3">
       </li>
     </ol>
 {% endblock breadcrumb %}
