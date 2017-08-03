@@ -39,7 +39,7 @@
             <ul class="list-unstyled">
             {% for agenda in agendas %}
                 <li class="agenda-lista">
-                    <i class="fa fa-clock-o"></i> {{agenda.fecha_hora|date:"h:i"}} - <a href="{{agenda.id}}">{{agenda.asunto}}</a> <br>
+                    <i class="fa fa-clock-o"></i> {{agenda.fecha_hora|date:"h:i"}} - <a href="{% url 'front:evento' agenda.id %}">{{agenda.asunto}}</a> <br>
                     <span class="organiza"><i class="fa fa-user"></i> {{ agenda.dirige }}</span>
                 </li>
             {% empty %}

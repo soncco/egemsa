@@ -43,5 +43,21 @@
         altFormat: "@"
     });
 
-    $('.datepicker').datepicker($.datepicker.regional['pl']);
+    $('.desde').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: 'dd M yy',
+        altField: "#desde",
+        altFormat: "@"
+    });
+
+    $('.hasta').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: 'dd M yy',
+        altField: "#hasta",
+        altFormat: "@"
+    });
+
+
 })(jQuery)

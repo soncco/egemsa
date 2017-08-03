@@ -14,8 +14,8 @@
                 </thead>
             {% for agenda in agendas %}
                 <tr>
-                    <td><a href="{% url 'evento' agenda.pk %}">{{agenda.fecha_hora|date:"h:i"}}</a></td>
-                    <td>{{agenda.asunto}}</td>
+                    <td>{{agenda.fecha_hora|date:"h:i"}}</td>
+                    <td><a href="{% url 'front:evento' agenda.pk %}">{{agenda.asunto}}</a></td>
                     <td>{{agenda.lugar}}</td>                   
                 </tr>
             {% empty %}

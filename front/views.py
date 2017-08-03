@@ -77,3 +77,12 @@ def agenda(request, id):
 
 def evento(request, id):
     evento = get_object_or_404(Agenda, pk = id)
+    context = {'evento': evento}
+    return render(request, 'front/evento.html', context)
+
+def buscar(request):
+    q = request.GET.get('q', '')
+    categorias = Categoria.objects.all()
+    
+    context = {'categorias': categorias}
+    return render(request, 'front/buscar.html', context)
