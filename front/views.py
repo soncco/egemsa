@@ -23,7 +23,7 @@ def index(request):
 
 def categoria(request, slug):
     categoria = get_object_or_404(Categoria, slug=slug)
-    documentos = Documento.objects.filter(categoria = categoria)
+    documentos = Documento.objects.filter(categoria = categoria).order_by('-id')
     categorias = Categoria.objects.filter(~Q(pk = categoria.pk))
 
     page = request.GET.get('page', 1)
