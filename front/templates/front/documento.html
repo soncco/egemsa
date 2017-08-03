@@ -22,7 +22,7 @@
             {% for archivo in documento.archivo_set.all %}
               <tr>
                 <td>{{archivo.nombre}}</td>
-                <td><a href="{{archivo.archivo.url}}"><i class="fa fa-file-o"></i> {{archivo.archivo}}</a></td>
+                <td><a href="{{archivo.archivo.url}}" target="_blank"><i class="fa fa-file-o"></i> {{archivo.archivo}}</a></td>
               </tr>
             {% endfor %}
             </tbody>
