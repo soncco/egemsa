@@ -83,6 +83,18 @@ def evento(request, id):
 def buscar(request):
     q = request.GET.get('q', '')
     categorias = Categoria.objects.all()
+
+    documentos = Documento.objects.filter(Q(nombre__icontains = q) | Q(nombre__icontains = q))
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(documentos, 10)
+
+    try:
+        documentos = paginator.page(page)
+    except PageNotAnInteger:
+        documentos = paginator.page(1)
+    except EmptyPage:
+        documentos = paginator.page(paginator.num_pages)
     
-    context = {'categorias': categorias}
+    context = {'categorias': categorias, 'documentos': documentos}
     return render(request, 'front/buscar.html', context)
