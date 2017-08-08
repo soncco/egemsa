@@ -23,20 +23,10 @@ def index(request):
 
 def categoria(request, slug):
     categoria = get_object_or_404(Categoria, slug=slug)
-    documentos = Documento.objects.filter(categoria = categoria).order_by('-id')
     categorias = Categoria.padres.all()
+    hijos = Categoria.objects.filter(padre = categoria)
 
-    page = request.GET.get('page', 1)
-    paginator = Paginator(documentos, 10)
-
-    try:
-        documentos = paginator.page(page)
-    except PageNotAnInteger:
-        documentos = paginator.page(1)
-    except EmptyPage:
-        documentos = paginator.page(paginator.num_pages)
-
-    context = {'categorias': categorias, 'categoria': categoria, 'documentos': documentos}
+    context = {'categorias': categorias, 'categoria': categoria, 'hijos': hijos}
     return render(request, 'front/categoria.html', context)
 
 

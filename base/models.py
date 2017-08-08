@@ -16,7 +16,7 @@ class CategoriaManager(models.Manager):
 @python_2_unicode_compatible
 class Categoria(models.Model):
     nombre = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True)
     padre = models.ForeignKey('Categoria', blank=True, null=True)
 
     def cadena(self):
@@ -44,12 +44,16 @@ class Documento(models.Model):
 
 @python_2_unicode_compatible
 class Archivo(models.Model):
+    anio = models.IntegerField(verbose_name='Año', blank=True, null=True)
     pertenece_a = models.ForeignKey(Documento)
     nombre = models.CharField(max_length=255)
     archivo = models.FileField(upload_to='', max_length=255)
 
+    def ext(self):
+        return self.archivo.url.split('.')[-1]
+
     def extension(self):
-        ext = self.archivo.url.split('.')[-1]
+        ext = self.ext()
         if ext == 'doc' or ext == 'docx':
             return 'fa-file-word-o text-info'
         elif ext == 'xls' or ext == 'xlsx':
@@ -81,7 +85,8 @@ class AgendaManager(models.Manager):
 @python_2_unicode_compatible
 class Agenda(models.Model):
     asunto = models.CharField(max_length=255)
-    dirige = models.ForeignKey(Participante)
+    dirige = models.ForeignKey(Participante, related_name='Dirige')
+    participan = models.ManyToManyField(Participante, related_name='Participan')
     junto_con = models.TextField()
     fecha_hora = models.DateTimeField()
     lugar = models.CharField(max_length=255, blank=True, null=True)

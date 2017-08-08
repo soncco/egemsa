@@ -3,39 +3,82 @@
     
     <div class="row">
         <div class="col-md-8">
-            <ul class="list-unstyled">
-            {% for documento in documentos %}
-                <li class="documento-lista">
-                    <a href="{% url 'front:documento' documento.id %}">{{documento.nombre}}</a> <br>
-                    <span class="fecha"><i class="fa fa-calendar"></i> {{documento.fecha|date:"d M Y"}}</span> 
-                </li>
-            {% empty %}
-                <li>No existen documentos</li>
-            {% endfor %}
-            </ul>
+            <div class="arbol">
+                <ul>
+                    {% for documento in categoria.documento_set.all  %}
+                        {% if documento.archivo_set.count == 1 %}
+                            <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}">{{ documento.nombre }}</a></li>    
+                        {% else %}
+                            <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}">{{ documento.nombre }}</a></li>
+                        {% endif %}
+                    {% empty %}
+                        <li>No existen documentos en la categoría padre.</li>
+                    {% endfor %}
+                </ul>
+                <hr>
+                <ul>
+                  {% for hijo in categoria.categoria_set.all %}
+                    <li>
+                        <h2>{{hijo.nombre}}</h2>
+                        <ul class="list-unstyled">
+                            {% for documento in hijo.documento_set.all  %}
+                                {% if documento.archivo_set.count == 1 %}
+                                    <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}">{{ documento.nombre }}</a></li>    
+                                {% else %}
+                                    <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}">{{ documento.nombre }}</a></li>
+                                {% endif %}
+                            {% empty %}
+                                <li>No existen documentos en esta categoría.</li>
+                            {% endfor %}
+                        </ul>
+                        {% if hijo.categoria_set.count != 0 %}
+                        <ul>
+                            {% for nieto in hijo.categoria_set.all  %}
+                            <li>
+                                <h3>{{nieto.nombre}}</h3>
+                                <ul class="list-unstyled">
+                                    {% for documento in nieto.documento_set.all  %}
+                                        {% if documento.archivo_set.count == 1 %}
+                                            <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}">{{ documento.nombre }}</a></li>    
+                                        {% else %}
+                                            <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}">{{ documento.nombre }}</a></li>
+                                        {% endif %}
+                                    {% empty %}
+                                        <li>No existen documentos en esta categoría.</li>
+                                    {% endfor %}
+                                </ul>
+                                {% if nieto.categoria_set.count != 0 %}
+                                <ul>
+                                    {% for bis in nieto.categoria_set.all %}
+                                        <li>
+                                            <h4>{{bis.nombre}}</h4>
+                                            <ul class="list-unstyled">
+                                                {% for documento in bis.documento_set.all  %}
+                                                    {% if documento.archivo_set.count == 1 %}
+                                                        <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}">{{ documento.nombre }}</a></li>    
+                                                    {% else %}
+                                                        <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}">{{ documento.nombre }}</a></li>
+                                                    {% endif %}
+                                                {% empty %}
+                                                    <li>No existen documentos en esta categoría.</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                    {% endfor %}
+                                </ul>                                
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </li>
+                  {% empty %}
+                      <li>No existen documentos o categorías</li>
+                  {% endfor %}
+                </ul>
+            
 
-            {% if documentos.has_other_pages %}
-              <ul class="pagination">
-                {% if documentos.has_previous %}
-                  <li><a href="?page={{ documentos.previous_page_number }}">&laquo;</a></li>
-                {% else %}
-                  <li class="disabled"><span>&laquo;</span></li>
-                {% endif %}
-                {% for i in documentos.paginator.page_range %}
-                  {% if documentos.number == i %}
-                    <li class="active"><span>{{ i }} <span class="sr-only">(actual)</span></span></li>
-                  {% else %}
-                    <li><a href="?page={{ i }}">{{ i }}</a></li>
-                  {% endif %}
-                {% endfor %}
-                {% if documentos.has_next %}
-                  <li><a href="?page={{ documentos.next_page_number }}">&raquo;</a></li>
-                {% else %}
-                  <li class="disabled"><span>&raquo;</span></li>
-                {% endif %}
-              </ul>
-            {% endif %}
-
+            </div>
         </div>
         <div class="col-md-4">
             <h3>Otras categorías</h3>
@@ -47,7 +90,6 @@
                     <li><a href="{% url 'front:categoria' cat.slug %}">{{ cat.nombre }}</a></li>
                     {% endif %}
                 {% endfor %}
-                <li><a href="{% url 'front:actividades' %}">Actividades oficiales</a></li>
             </ul>
         </div>
     </div>
@@ -55,7 +97,9 @@
 
 {% block title %}Documentos en {{categoria.nombre}}{% endblock title %}
 
-{% block page %}Documentos en {{categoria.nombre}}{% endblock page %}
+{% block page %}
+Documentos en {{categoria.nombre}}
+{% endblock page %}
 
 {% block breadcrumb %}
     <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
@@ -70,3 +114,22 @@
       </li>
     </ol>
 {% endblock breadcrumb %}
+
+{% block modal %}
+    <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="commonModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+            <h4 class="modal-title" id="commonModalLabel"></h4>
+          </div>
+          <div class="modal-body">
+            <iframe src="" style="zoom:0.60" width="99.6%" height="600" frameborder="0" id="youtube-iframe" allowfullscreen></iframe>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock modal %}

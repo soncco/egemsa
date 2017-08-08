@@ -18,7 +18,6 @@
             {% for cat in categorias_global %}
               <li><a href="{% url 'front:categoria' cat.slug %}">{{cat.nombre}}</a></li>
             {% endfor %}
-            <li><a href="{% url 'front:actividades' %}">Actividades oficiales</a></li>
           </ul>
         </li>
       </ul>

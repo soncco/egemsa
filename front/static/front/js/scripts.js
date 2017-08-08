@@ -1,0 +1,1 @@
+!function($){$(".show-pdf").click(function(e){e.preventDefault(),$("#commonModal").modal("hide"),$(".modal-body iframe").attr("src",$(this).attr("href")),$("#commonModal").modal({show:!0}),$("#commonModalLabel").text("Vista de documento")})}(jQuery);
