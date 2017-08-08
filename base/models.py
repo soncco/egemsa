@@ -9,13 +9,27 @@ from datetime import datetime, timedelta, time
 
 from ckeditor.fields import RichTextField
 
+class CategoriaManager(models.Manager):
+    def all(self):
+        return self.filter(padre = None)
+
 @python_2_unicode_compatible
 class Categoria(models.Model):
     nombre = models.CharField(max_length=255)
     slug = models.SlugField(max_length=100)
+    padre = models.ForeignKey('Categoria', blank=True, null=True)
+
+    def cadena(self):
+        if self.padre is None:
+            return self.nombre
+        else:
+            return self.padre.cadena() + ' > ' + self.nombre
 
     def __str__(self):
-        return self.nombre
+        return self.cadena()
+
+    objects = models.Manager()
+    padres = CategoriaManager()
 
 @python_2_unicode_compatible
 class Documento(models.Model):
@@ -33,6 +47,17 @@ class Archivo(models.Model):
     pertenece_a = models.ForeignKey(Documento)
     nombre = models.CharField(max_length=255)
     archivo = models.FileField(upload_to='', max_length=255)
+
+    def extension(self):
+        ext = self.archivo.url.split('.')[-1]
+        if ext == 'doc' or ext == 'docx':
+            return 'fa-file-word-o text-info'
+        elif ext == 'xls' or ext == 'xlsx':
+            return 'fa-file-excel-o text-success'
+        elif ext == 'pdf':
+            return 'fa-file-pdf-o text-danger'
+        else:
+            return 'fa-file-o text-warning'
 
     def __str__(self):
         return self.nombre

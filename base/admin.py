@@ -6,8 +6,9 @@ from django.contrib import admin
 from base.models import Categoria, Documento, Archivo, Participante, Agenda
 
 class CategoriaAdmin(admin.ModelAdmin):
-    list_display = ('nombre',)
+    list_display = ('cadena',)
     search_fields = ['nombre',]
+    list_filter = ('padre',)
     prepopulated_fields = {'slug': ('nombre',)}
 
 class ArchivoInline(admin.TabularInline):

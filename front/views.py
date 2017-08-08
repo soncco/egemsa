@@ -13,7 +13,7 @@ from datetime import datetime
 
 
 def index(request):
-    categorias = Categoria.objects.all()
+    categorias = Categoria.padres.all()
     documentos = Documento.objects.all().order_by('-id')[:10]
     agendas = Agenda.hoy.eventos_hoy()
     
@@ -24,7 +24,7 @@ def index(request):
 def categoria(request, slug):
     categoria = get_object_or_404(Categoria, slug=slug)
     documentos = Documento.objects.filter(categoria = categoria).order_by('-id')
-    categorias = Categoria.objects.filter(~Q(pk = categoria.pk))
+    categorias = Categoria.padres.all()
 
     page = request.GET.get('page', 1)
     paginator = Paginator(documentos, 10)
@@ -59,7 +59,7 @@ def actividades(request):
 
 def agenda(request, id):
     participante = get_object_or_404(Participante, pk=id)
-    categorias = Categoria.objects.all()
+    categorias = Categoria.padres.all()
     participantes = Participante.objects.all()
 
     today = datetime.now().date()
@@ -82,7 +82,7 @@ def evento(request, id):
 
 def buscar(request):
     q = request.GET.get('q', '')
-    categorias = Categoria.objects.all()
+    categorias = Categoria.padres.all()
 
     documentos = Documento.objects.filter(Q(nombre__icontains = q) | Q(nombre__icontains = q))
 
