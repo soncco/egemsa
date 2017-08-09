@@ -31,6 +31,7 @@ class Categoria(models.Model):
     objects = models.Manager()
     padres = CategoriaManager()
 
+
 @python_2_unicode_compatible
 class Documento(models.Model):
     categoria = models.ForeignKey(Categoria)
@@ -44,7 +45,7 @@ class Documento(models.Model):
 
 @python_2_unicode_compatible
 class Archivo(models.Model):
-    anio = models.IntegerField(verbose_name='Año', blank=True, null=True)
+    fecha = models.DateField(blank=True, null=True)
     pertenece_a = models.ForeignKey(Documento)
     nombre = models.CharField(max_length=255)
     archivo = models.FileField(upload_to='', max_length=255)

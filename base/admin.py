@@ -11,6 +11,11 @@ class CategoriaAdmin(admin.ModelAdmin):
     list_filter = ('padre',)
     prepopulated_fields = {'slug': ('nombre',)}
 
+    def queryset(self, request):
+        qs = super(CategoriaAdmin, self).queryset(request)
+
+        return qs.order_by('-cadena')
+
 class ArchivoInline(admin.TabularInline):
     model = Archivo
 

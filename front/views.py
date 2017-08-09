@@ -57,10 +57,10 @@ def agenda(request, id):
     fecha = request.GET.get('fecha')
     if fecha is not None:
         fecha, fecha_end, fecha_start = fechas(fecha)
-        agendas = Agenda.objects.filter(dirige = participante, fecha_hora__lte=fecha_end, fecha_hora__gte=fecha_start).order_by('fecha_hora')
+        agendas = Agenda.objects.filter(Q(dirige = participante) | Q(participan = participante), fecha_hora__lte=fecha_end, fecha_hora__gte=fecha_start).order_by('fecha_hora')
     else:
         fecha = today
-        agendas = Agenda.hoy.eventos_hoy().filter(dirige = participante)
+        agendas = Agenda.hoy.eventos_hoy().filter(Q(dirige = participante) | Q(participan = participante))
 
     context = {'categorias': categorias, 'agendas': agendas, 'fecha': fecha, 'participantes': participantes, 'actual': participante}
     return render(request, 'front/agenda.html', context)

@@ -86,9 +86,9 @@
                 <ul class="list-unstyled">
                     {% for cat in categorias %}
                         {% if  cat.id == categoria.id %}
-                        <li class="active">{{ cat.nombre }}</li>
+                        <li class="comun-lista active">{{ cat.nombre }}</li>
                         {% else %}
-                        <li><a href="{% url 'front:categoria' cat.slug %}">{{ cat.nombre }}</a></li>
+                        <li class="comun-lista"><a href="{% url 'front:categoria' cat.slug %}">{{ cat.nombre }}</a></li>
                         {% endif %}
                     {% endfor %}
                 </ul>
@@ -109,11 +109,58 @@ Documentos en {{categoria.nombre}}
         <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:index" %}"><span itemprop="name">Inicio</span></a>
         <meta itemprop="position" content="1">
       </li>
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
-        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}" class="hidden"><span itemprop="name">Documentos en {{categoria.nombre}}</span></a>
-        Documentos en {{categoria.nombre}}
-        <meta itemprop="position" content="2">
-      </li>
+      {% if categoria.padre.padre.padre  %}
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.padre.padre.slug %}"><span itemprop="name">{{categoria.padre.padre.padre.nombre}}</span></a>
+            <meta itemprop="position" content="2">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.padre.slug %}"><span itemprop="name">{{categoria.padre.padre.nombre}}</span></a>
+            <meta itemprop="position" content="3">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.slug %}"><span itemprop="name">{{categoria.padre.nombre}}</span></a>
+            <meta itemprop="position" content="4">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}"><span itemprop="name">{{categoria.nombre}}</span></a>
+            <meta itemprop="position" content="5">
+        </li>
+      {% endif %}
+
+      {% if categoria.padre.padre.padre == None and categoria.padre.padre %}
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.padre.slug %}"><span itemprop="name">{{categoria.padre.padre.nombre}}</span></a>
+            <meta itemprop="position" content="2">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.slug %}"><span itemprop="name">{{categoria.padre.nombre}}</span></a>
+            <meta itemprop="position" content="3">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}"><span itemprop="name">{{categoria.nombre}}</span></a>
+            <meta itemprop="position" content="4">
+        </li>
+      {% endif %}
+
+      {% if categoria.padre.padre == None and categoria.padre %}
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.slug %}"><span itemprop="name">{{categoria.padre.nombre}}</span></a>
+            <meta itemprop="position" content="2">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}"><span itemprop="name">{{categoria.nombre}}</span></a>
+            <meta itemprop="position" content="3">
+        </li>
+      {% endif %}
+
+      {% if categoria.padre == None %}
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}"><span itemprop="name">{{categoria.nombre}}</span></a>
+            <meta itemprop="position" content="2">
+        </li>
+      {% endif %}
+      
     </ol>
 {% endblock breadcrumb %}
 
