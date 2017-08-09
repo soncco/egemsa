@@ -8,8 +8,8 @@
             {% for documento in documentos %}
                 <li class="documento-lista">
                     <a href="{% url 'front:documento' documento.id %}">{{documento.nombre}}</a> <br>
-                    <span class="fecha"><i class="fa fa-tag"></i> {{documento.categoria.nombre}}</span> <br>
-                    <span class="categoría"><i class="fa fa-calendar"></i> {{documento.fecha|date:"d M Y"}}</span> 
+                    <span class="categoria-lista" title="Categoría"><i class="fa fa-tag"></i> <a href="{% url 'front:categoria' documento.categoria.pk %}">{{documento.categoria.cadena}}</a></span> <br>
+                    <span class="fecha-lista" title="Fecha de subida"><i class="fa fa-calendar"></i> {{documento.fecha|date:"d M Y"}}</span>
                 </li>
             {% empty %}
                 <li>No existen documentos</li>

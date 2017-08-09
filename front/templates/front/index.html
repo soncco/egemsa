@@ -20,15 +20,15 @@
             {% for documento in documentos %}
                 <li class="documento-lista">
                     <a href="{% url 'front:documento' documento.id %}">{{documento.nombre}}</a> <br>
-                    <span class="categoria-lista"><i class="fa fa-tag"></i> {{documento.categoria.cadena}}</span> <br>
-                    <span class="fecha-lista"><i class="fa fa-calendar"></i> {{documento.fecha|date:"d M Y"}}</span>
+                    <span class="categoria-lista" title="Categoría"><i class="fa fa-tag"></i> {{documento.categoria.cadena}}</span> <br>
+                    <span class="fecha-lista" title="Fecha de subida"><i class="fa fa-calendar"></i> {{documento.fecha|date:"d M Y"}}</span>
                 </li>
             {% empty %}
                 <li>No existen documentos</li>
             {% endfor %}
             </ul>
 
-            <h2>Agenda de hoy</h2>
+            <h2>Agenda de hoy <small><a href="{% url 'front:actividades' %}">(<i class="fa fa-plus"></i>)</a></small></h2>
             <ul class="list-unstyled">
             {% for agenda in agendas %}
                 <li class="agenda-lista">

@@ -2,18 +2,31 @@
 {% load static %}
 {% block content %}
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-7">
             <h3>Descripción</h3>
             {{evento.descripcion|safe}}
         </div>
-        <div class="col-md-4">
-            <h3>Información del evento</h3>
-            <ul class="list-unstyled">
-                <li><i class="fa fa-user"></i> Dirige: {{evento.dirige}}</li>
-                <li><i class="fa fa-users"></i> Participan: {{evento.junto_con}}</li>                
-                <li><i class="fa fa-clock-o"></i> Hora: {{evento.fecha_hora}}</li>                
-                <li><i class="fa fa-map-marker"></i> Lugar: {{evento.lugar}}</li>                
-            </ul>
+        <div class="col-md-5">
+            <div class="sidebar">
+            <div class="evento-meta">
+                <h3>Información del evento</h3>
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-user"></i> <strong>Dirige</strong>: {{evento.dirige}}</li>
+                        <li><i class="fa fa-users"></i> <strong>Participan</strong>:
+                            {% if evento.participan.count != 0 %}
+                                <ul>
+                                    {% for participante in evento.participan.all %}
+                                        <li>{{participante}}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                        <li><i class="fa fa-user-o"></i> <strong>Junto con</strong>: {{evento.junto_con}}</li>                
+                        <li><i class="fa fa-clock-o"></i> <strong>Hora</strong>: {{evento.fecha_hora}}</li>                
+                        <li><i class="fa fa-map-marker"></i> <strong>Lugar</strong>: {{evento.lugar}}</li>                
+                    </ul>
+                </div>
+            </div>
 
         </div>
     </div>
