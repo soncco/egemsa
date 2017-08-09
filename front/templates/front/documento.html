@@ -11,22 +11,49 @@
 
           {% if documento.archivo_set.count != 0 %}
           <h3>Archivos</h3>
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Archivo</th>
-              </tr>
-            </thead>
-            <tbody>
-            {% for archivo in documento.archivo_set.all %}
-              <tr>
-                <td>{{archivo.nombre}}</td>
-                <td><a href="{{archivo.archivo.url}}" target="_blank" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{archivo.extension}}"></i> {{archivo.archivo}}</a></td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
+            {% if not documento.orden_anual %}
+              
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Archivo</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for archivo in documento.archivo_set.all %}
+                <tr>
+                  <td>{{archivo.nombre}}</td>
+                  <td><a href="{{archivo.archivo.url}}" target="_blank" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{archivo.extension}}"></i> {{archivo.archivo}}</a></td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+            {% else %}
+              {% regroup documento.archivo_set.all by fecha|date:"Y" as otros %}
+              {% for item in otros %}
+                <table class="table table-striped table-hover">
+                <caption>{{item.grouper}}</caption>
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Nombre</th>
+                    <th>Archivo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for archivo in item.list %}
+                  <tr>
+                    <td>{{archivo.fecha|date:"d M Y"}}</td>
+                    <td>{{archivo.nombre}}</td>
+                    <td><a href="{{archivo.archivo.url}}" target="_blank" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{archivo.extension}}"></i> {{archivo.archivo}}</a></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              {% endfor %}
+            {% endif %}
+
           {% endif %}
 
         </div>

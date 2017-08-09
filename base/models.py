@@ -39,6 +39,7 @@ class Documento(models.Model):
     fecha = models.DateField()
     descripcion = RichTextField(null=True, blank=True)
     creado_por = models.ForeignKey(User)
+    orden_anual = models.BooleanField(default=False)
 
     def __str__(self):
         return self.nombre
