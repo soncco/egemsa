@@ -7,9 +7,9 @@
                 <ul>
                     {% for documento in categoria.documento_set.all  %}
                         {% if documento.archivo_set.count == 1 %}
-                            <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}">{{ documento.nombre }}</a></li>    
+                            <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a></li>    
                         {% else %}
-                            <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}">{{ documento.nombre }}</a></li>
+                            <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-primary"></i> {{ documento.nombre }}</a></li>
                         {% endif %}
                     {% empty %}
                         <li>No existen documentos en la categoría padre.</li>
@@ -23,9 +23,9 @@
                         <ul class="list-unstyled">
                             {% for documento in hijo.documento_set.all  %}
                                 {% if documento.archivo_set.count == 1 %}
-                                    <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}">{{ documento.nombre }}</a></li>    
+                                    <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a></li>    
                                 {% else %}
-                                    <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}">{{ documento.nombre }}</a></li>
+                                    <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-primary"></i> {{ documento.nombre }}</a></li>
                                 {% endif %}
                             {% empty %}
                                 <li>No existen documentos en esta categoría.</li>
@@ -39,9 +39,9 @@
                                 <ul class="list-unstyled">
                                     {% for documento in nieto.documento_set.all  %}
                                         {% if documento.archivo_set.count == 1 %}
-                                            <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}">{{ documento.nombre }}</a></li>    
+                                            <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a></li>    
                                         {% else %}
-                                            <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}">{{ documento.nombre }}</a></li>
+                                            <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-primary"></i> {{ documento.nombre }}</a></li>
                                         {% endif %}
                                     {% empty %}
                                         <li>No existen documentos en esta categoría.</li>
@@ -55,9 +55,9 @@
                                             <ul class="list-unstyled">
                                                 {% for documento in bis.documento_set.all  %}
                                                     {% if documento.archivo_set.count == 1 %}
-                                                        <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}">{{ documento.nombre }}</a></li>    
+                                                        <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a></li>    
                                                     {% else %}
-                                                        <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}">{{ documento.nombre }}</a></li>
+                                                        <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-primary"></i> {{ documento.nombre }}</a></li>
                                                     {% endif %}
                                                 {% empty %}
                                                     <li>No existen documentos en esta categoría.</li>
@@ -81,16 +81,18 @@
             </div>
         </div>
         <div class="col-md-4">
-            <h3>Otras categorías</h3>
-            <ul>
-                {% for cat in categorias %}
-                    {% if  cat.id == categoria.id %}
-                    <li>{{ cat.nombre }}</li>
-                    {% else %}
-                    <li><a href="{% url 'front:categoria' cat.slug %}">{{ cat.nombre }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+            <div class="sidebar">
+                <h3>Otras categorías</h3>
+                <ul class="list-unstyled">
+                    {% for cat in categorias %}
+                        {% if  cat.id == categoria.id %}
+                        <li class="active">{{ cat.nombre }}</li>
+                        {% else %}
+                        <li><a href="{% url 'front:categoria' cat.slug %}">{{ cat.nombre }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
 {% endblock content %}

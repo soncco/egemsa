@@ -1,3 +1,7 @@
+$azul = #1D417D
+$verde = #60B53E
+$azulbg = #354052
+$grey = #EDF2F6
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 body
     font-family 'Raleway', sans-serif
@@ -12,3 +16,76 @@ body
     
 .modal-dialog
     width 95%
+
+
+.navbar-inverse
+    background $azulbg
+    border-color $azulbg
+    
+    .navbar-nav>li>a
+    .navbar-brand
+        color #e2edff
+
+h1
+    color $azul
+    
+h2
+    color $verde
+    
+.categoria
+    background $grey
+    padding 5px 10px
+    height 80px
+    text-align center
+    margin-bottom 10px
+    &:hover
+        background #f1f1f1
+        
+    h4
+        font-size 14px
+        
+
+.documento-lista
+    border-bottom 1px solid $grey
+    padding 4px 0
+    
+    .categoria-lista
+    .fecha-lista
+        font-size 12px
+        color #888
+        
+    .fecha-lista
+        color #6d6d6d
+        
+
+.arbol
+    h2
+        font-size 20px
+    h3
+        font-size 17px
+    h4
+        font-size 14px
+        
+    h2, h3, h4
+        margin-bottom 0
+        color #3f945e
+        
+.sidebar
+    h3
+        color $azul
+    ul
+        li
+            a
+                background $grey
+                display block
+                padding 8px 10px
+                border 1px solid transparent
+                border-width 1px 0
+                text-decoration none
+                &:hover
+                    background #f1f1f1
+                    border-color #cdcaca
+                
+            &.active
+                padding 8px 10px
+                font-weight bold
