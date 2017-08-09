@@ -123,7 +123,8 @@ Documentos en {{categoria.nombre}}
             <meta itemprop="position" content="4">
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}"><span itemprop="name">{{categoria.nombre}}</span></a>
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}" class="hidden"><span itemprop="name">{{categoria.nombre}}</span></a>
+            {{categoria.nombre}}
             <meta itemprop="position" content="5">
         </li>
       {% endif %}
@@ -138,7 +139,8 @@ Documentos en {{categoria.nombre}}
             <meta itemprop="position" content="3">
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}"><span itemprop="name">{{categoria.nombre}}</span></a>
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}" class="hidden"><span itemprop="name">{{categoria.nombre}}</span></a>
+            {{categoria.nombre}}
             <meta itemprop="position" content="4">
         </li>
       {% endif %}
@@ -149,14 +151,16 @@ Documentos en {{categoria.nombre}}
             <meta itemprop="position" content="2">
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}"><span itemprop="name">{{categoria.nombre}}</span></a>
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}" class="hidden"><span itemprop="name">{{categoria.nombre}}</span></a>
+            {{categoria.nombre}}
             <meta itemprop="position" content="3">
         </li>
       {% endif %}
 
       {% if categoria.padre == None %}
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}"><span itemprop="name">{{categoria.nombre}}</span></a>
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}" class="hidden"><span itemprop="name">{{categoria.nombre}}</span></a>
+            {{categoria.nombre}}
             <meta itemprop="position" content="2">
         </li>
       {% endif %}

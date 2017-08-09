@@ -58,15 +58,77 @@
         <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:index" %}"><span itemprop="name">Inicio</span></a>
         <meta itemprop="position" content="1">
       </li>
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
-        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" documento.categoria.slug %}"><span itemprop="name">{{documento.categoria.nombre}}</span></a>
-        <meta itemprop="position" content="2">
+      {% if documento.categoria.padre.padre.padre  %}
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" documento.categoria.padre.padre.padre.slug %}"><span itemprop="name">{{documento.categoria.padre.padre.padre.nombre}}</span></a>
+            <meta itemprop="position" content="2">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" documento.categoria.padre.padre.slug %}"><span itemprop="name">{{documento.categoria.padre.padre.nombre}}</span></a>
+            <meta itemprop="position" content="3">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" documento.categoria.padre.slug %}"><span itemprop="name">{{documento.categoria.padre.nombre}}</span></a>
+            <meta itemprop="position" content="4">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" documento.categoria.slug %}"><span itemprop="name">{{documento.categoria.nombre}}</span></a>
+            <meta itemprop="position" content="5">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
+        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:documento" documento.id %}" class="hidden"><span itemprop="name">{{documento.nombre}}</span></a>
+        {{documento.nombre}}
+        <meta itemprop="position" content="6">
       </li>
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
+      {% endif %}
+
+      {% if documento.categoria.padre.padre.padre == None and documento.categoria.padre.padre %}
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" documento.categoria.padre.padre.slug %}"><span itemprop="name">{{documento.categoria.padre.padre.nombre}}</span></a>
+            <meta itemprop="position" content="2">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" documento.categoria.padre.slug %}"><span itemprop="name">{{documento.categoria.padre.nombre}}</span></a>
+            <meta itemprop="position" content="3">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" documento.categoria.slug %}"><span itemprop="name">{{documento.categoria.nombre}}</span></a>
+            <meta itemprop="position" content="4">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
+        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:documento" documento.id %}" class="hidden"><span itemprop="name">{{documento.nombre}}</span></a>
+        {{documento.nombre}}
+        <meta itemprop="position" content="5">
+      </li>
+      {% endif %}
+
+      {% if documento.categoria.padre.padre == None and documento.categoria.padre %}
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" documento.categoria.padre.slug %}"><span itemprop="name">{{documento.categoria.padre.nombre}}</span></a>
+            <meta itemprop="position" content="2">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" documento.categoria.slug %}"><span itemprop="name">{{documento.categoria.nombre}}</span></a>
+            <meta itemprop="position" content="3">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
+        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:documento" documento.id %}" class="hidden"><span itemprop="name">{{documento.nombre}}</span></a>
+        {{documento.nombre}}
+        <meta itemprop="position" content="4">
+      </li>
+      {% endif %}
+
+      {% if documento.categoria.padre == None %}
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" documento.categoria.slug %}"><span itemprop="name">{{documento.categoria.nombre}}</span></a>
+            <meta itemprop="position" content="2">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
         <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:documento" documento.id %}" class="hidden"><span itemprop="name">{{documento.nombre}}</span></a>
         {{documento.nombre}}
         <meta itemprop="position" content="3">
       </li>
+      {% endif %}
     </ol>
 {% endblock breadcrumb %}
 
