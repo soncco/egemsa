@@ -24,6 +24,7 @@
       <form class="navbar-form navbar-right" action="{% url 'front:buscar' %}" method="get">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Buscar" name="q" value="{% if request.GET.q %}{{request.GET.q}}{%endif%}">
+          <input type="hidden" name="first">
         </div>
       </form>
 

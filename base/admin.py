@@ -24,6 +24,11 @@ class DocumentoAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'fecha', 'categoria', 'creado_por',)
     search_fields = ['nombre']
     list_filter = ('fecha', 'categoria', 'creado_por',)
+    exclude = ['creado_por']
+
+    def save_model(self, request, obj, form, change):
+        obj.creado_por = request.user
+        obj.save()
 
 class ParticipanteAdmin(admin.ModelAdmin):
     list_display = ('nombre',)
@@ -33,6 +38,11 @@ class AgendaAdmin(admin.ModelAdmin):
     list_display = ('dirige', 'fecha_hora', 'lugar', 'creado_por',)
     search_fields = ['dirige', 'asunto']
     list_filter = ('dirige', 'fecha_hora', 'lugar', 'creado_por',)
+    exclude = ['creado_por']
+
+    def save_model(self, request, obj, form, change):
+        obj.creado_por = request.user
+        obj.save()
 
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(Documento, DocumentoAdmin)

@@ -41,7 +41,7 @@
         </div>
         <div class="col-md-4">
             <h3>Búsqueda Avanzada</h3>
-            <form class="" action="{% url 'front:buscar' %}" method="get">
+            <form class="busqueda-form" action="{% url 'front:buscar' %}" method="get">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Buscar" name="q" value="{% if request.GET.q %}{{request.GET.q}}{%endif%}">
               </div>
@@ -50,7 +50,11 @@
               <h4>Categorías</h4>
               <ul class="list-unstyled">
                   {% for cat in categorias %}
+                      {% if cats %}
+                      <li><label><input type="checkbox" value="{{cat.id}}" name="categoria[]" {% if cat.id in cats %}checked{% endif %}> {{ cat.nombre }}</label></li>
+                      {% else %}
                       <li><label><input type="checkbox" value="{{cat.id}}" name="categoria[]" checked> {{ cat.nombre }}</label></li>
+                      {% endif %}
                   {% endfor %}
               </ul>
 
@@ -58,16 +62,16 @@
               <h4>Fechas</h4>
               <div class="form-inline">
                 <div class="form-group">
-                  <input type="text" class="form-control desde" placeholder="Desde">
-                  <input type="hidden" name="desde" value="" id="desde">
+                  <input type="text" class="form-control desde" placeholder="Desde" value="{% if desde %}{{desde|date:"d M Y"}}{% endif %}">
+                  <input type="hidden" name="desde" value="{% if desde %}{{desde|date:"U"}}{% endif %}" id="desde">
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control hasta" placeholder="Hasta">
-                  <input type="hidden" name="hasta" value="" id="hasta">
+                  <input type="text" class="form-control hasta" placeholder="Hasta"value="{% if hasta %}{{hasta|date:"d M Y"}}{% endif %}">
+                  <input type="hidden" name="hasta" value="{% if hasta %}{{hasta|date:"U"}}{% endif %}" id="hasta">
                 </div>
               </div>
               <hr>
-              <button class="btn btn-block btn-default"><i class="fa fa-search"></i> Buscar</button>
+              <button class="btn btn-block btn-primary"><i class="fa fa-search"></i> Buscar</button>
             </form>
         </div>
     </div>

@@ -7,7 +7,7 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404
 
 from base.models import Categoria, Documento, Agenda, Participante
-from .utils import fechas
+from .utils import fechas, get_fecha
 
 from datetime import datetime
 
@@ -72,9 +72,28 @@ def evento(request, id):
 
 def buscar(request):
     q = request.GET.get('q', '')
+    first = request.GET.get('first')
     categorias = Categoria.padres.all()
-
     documentos = Documento.objects.filter(Q(nombre__icontains = q) | Q(nombre__icontains = q))
+
+    if first != '':
+        cats = request.GET.getlist('categoria[]')
+        if len(cats) > 0:
+            documentos = documentos.filter(Q(categoria__padre__padre__padre__pk__in = cats) | Q(categoria__padre__padre__pk__in = cats) | Q(categoria__padre__pk__in = cats) | Q(categoria__pk__in = cats))
+
+        desde = request.GET.get('desde')
+        hasta = request.GET.get('hasta')
+        if hasta == '' and desde != '':
+            desde = get_fecha(desde)
+            documentos = documentos.filter(fecha__gte = desde)
+        elif hasta != '' and desde != '':
+            desde = get_fecha(desde)
+            hasta = get_fecha(hasta)
+            documentos = documentos.filter(fecha__range = (desde, hasta))
+        else:
+            desde = None
+            hasta = None
+
 
     page = request.GET.get('page', 1)
     paginator = Paginator(documentos, 10)
@@ -85,6 +104,11 @@ def buscar(request):
         documentos = paginator.page(1)
     except EmptyPage:
         documentos = paginator.page(paginator.num_pages)
-    
-    context = {'categorias': categorias, 'documentos': documentos}
+
+    if first != '':
+        cats = [ int(x) for x in cats ]    
+        context = {'categorias': categorias, 'documentos': documentos, 'cats': cats, 'desde': desde, 'hasta': hasta}
+    else:
+        context = {'categorias': categorias, 'documentos': documentos}
+
     return render(request, 'front/buscar.html', context)
