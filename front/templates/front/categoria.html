@@ -12,7 +12,11 @@
                             <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-primary"></i> {{ documento.nombre }}</a></li>
                         {% endif %}
                     {% empty %}
+                        {% if documento.url != '' %}
+                        <li><a href="{{documento.url}}" target="_blank"><i class="fa fa-external-link"></i> Ir al enlace</a></li>
+                        {% else %}
                         <li>No existen documentos en la categoría padre.</li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
                 <hr>
@@ -28,7 +32,11 @@
                                     <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-primary"></i> {{ documento.nombre }}</a></li>
                                 {% endif %}
                             {% empty %}
-                                <li>No existen documentos en esta categoría.</li>
+                                {% if documento.url != '' %}
+                                <li><a href="{{documento.url}}" target="_blank"><i class="fa fa-external-link"></i> Ir al enlace</a></li>
+                                {% else %}
+                                <li>No existen documentos en la categoría padre.</li>
+                                {% endif %}
                             {% endfor %}
                         </ul>
                         {% if hijo.categoria_set.count != 0 %}
@@ -44,7 +52,11 @@
                                             <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-primary"></i> {{ documento.nombre }}</a></li>
                                         {% endif %}
                                     {% empty %}
-                                        <li>No existen documentos en esta categoría.</li>
+                                        {% if documento.url != '' %}
+                                        <li><a href="{{documento.url}}" target="_blank"><i class="fa fa-external-link"></i> Ir al enlace</a></li>
+                                        {% else %}
+                                        <li>No existen documentos en la categoría padre.</li>
+                                        {% endif %}
                                     {% endfor %}
                                 </ul>
                                 {% if nieto.categoria_set.count != 0 %}
@@ -60,7 +72,11 @@
                                                         <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-primary"></i> {{ documento.nombre }}</a></li>
                                                     {% endif %}
                                                 {% empty %}
-                                                    <li>No existen documentos en esta categoría.</li>
+                                                    {% if documento.url != '' %}
+                                                    <li><a href="{{documento.url}}" target="_blank"><i class="fa fa-external-link"></i> Ir al enlace</a></li>
+                                                    {% else %}
+                                                    <li>No existen documentos en la categoría padre.</li>
+                                                    {% endif %}
                                                 {% endfor %}
                                             </ul>
                                         </li>

@@ -38,6 +38,7 @@ class Documento(models.Model):
     nombre = models.CharField(max_length=255)
     fecha = models.DateField()
     descripcion = RichTextField(null=True, blank=True)
+    enlace = models.URLField(max_length=255, blank=True, null=True)
     creado_por = models.ForeignKey(User)
     orden_anual = models.BooleanField(default=False)
 
@@ -46,7 +47,7 @@ class Documento(models.Model):
 
 @python_2_unicode_compatible
 class Archivo(models.Model):
-    fecha = models.DateField(blank=True, null=True)
+    fecha = models.DateField()
     pertenece_a = models.ForeignKey(Documento)
     nombre = models.CharField(max_length=255)
     archivo = models.FileField(upload_to='', max_length=255)
@@ -88,7 +89,7 @@ class AgendaManager(models.Manager):
 class Agenda(models.Model):
     asunto = models.CharField(max_length=255)
     dirige = models.ForeignKey(Participante, related_name='Dirige')
-    participan = models.ManyToManyField(Participante, related_name='Participan')
+    participan = models.ManyToManyField(Participante, related_name='Participan', blank=True)
     junto_con = models.TextField()
     fecha_hora = models.DateTimeField()
     lugar = models.CharField(max_length=255, blank=True, null=True)
