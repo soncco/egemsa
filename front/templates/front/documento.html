@@ -24,6 +24,7 @@
               <tbody>
               {% for archivo in documento.archivo_set.all %}
                 <tr>
+                  <td>{{archivo.fecha|date:"d M Y"}}</td>
                   <td>{{archivo.nombre}}</td>
                   <td><a href="{{archivo.archivo.url}}" target="_blank" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{archivo.extension}}"></i> {{archivo.archivo}}</a></td>
                 </tr>
