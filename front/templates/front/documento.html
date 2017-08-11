@@ -22,7 +22,7 @@
                 </tr>
               </thead>
               <tbody>
-              {% for archivo in documento.archivo_set.all %}
+              {% for archivo in documento.archivo_set.all|dictsortreversed:"fecha" %}
                 <tr>
                   <td>{{archivo.nombre}}</td>
                   <td><a href="{{archivo.archivo.url}}" target="_blank" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{archivo.extension}}"></i> {{archivo.archivo}}</a></td>
