@@ -128,3 +128,16 @@ STATIC_ROOT = config('STATIC_ROOT')
 
 MEDIA_ROOT = '../static/archivos'
 MEDIA_URL = '/static/archivos/'
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': 'localhost:6379',
+        'OPTIONS': {
+            'DB': 2,
+            'PARSER_CLASS': 'redis.connection.HiredisParser'
+        }
+    }
+
+}
