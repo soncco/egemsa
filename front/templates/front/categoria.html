@@ -7,16 +7,20 @@
                 <ul>
                     {% for documento in categoria.documento_set.all  %}
                         {% if documento.archivo_set.count == 1 %}
-                            <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a></li>    
+                            <li>
+                                <a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a> -
+                                (<a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}" title="Enlace al documento"><i class="fa fa-link text-danger"></i></a>)
+                                (<a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" target="_blank" title="Abrir en archivo en una pestaña nueva"><i class="fa fa-external-link text-success"></i></a>)
+                            </li>
                         {% else %}
-                            <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-primary"></i> {{ documento.nombre }}</a></li>
+                            {% if documento.enlace %}
+                                <li><a href="{{documento.enlace}}" target="_blank" title="Enlace externo" rel="external"><i class="fa fa-external-link text-success"></i> {{documento.nombre}}</a></li>
+                            {% else %}
+                                <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-danger"></i> {{ documento.nombre }}</a></li>
+                            {% endif %}
                         {% endif %}
                     {% empty %}
-                        {% if documento.url != '' %}
-                        <li><a href="{{documento.url}}" target="_blank"><i class="fa fa-external-link"></i> Ir al enlace</a></li>
-                        {% else %}
                         <li>No existen documentos en la categoría padre.</li>
-                        {% endif %}
                     {% endfor %}
                 </ul>
                 <hr>
@@ -27,16 +31,20 @@
                         <ul class="list-unstyled">
                             {% for documento in hijo.documento_set.all  %}
                                 {% if documento.archivo_set.count == 1 %}
-                                    <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a></li>    
+                                    <li>
+                                        <a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a> -
+                                        (<a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}" title="Enlace al documento"><i class="fa fa-link text-danger"></i></a>)
+                                        (<a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" target="_blank" title="Abrir en archivo en una pestaña nueva"><i class="fa fa-external-link text-success"></i></a>)
+                                    </li>
                                 {% else %}
-                                    <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-primary"></i> {{ documento.nombre }}</a></li>
+                                    {% if documento.enlace %}
+                                        <li><a href="{{documento.enlace}}" target="_blank" title="Enlace externo" rel="external"><i class="fa fa-external-link text-success"></i> {{documento.nombre}}</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-danger"></i> {{ documento.nombre }}</a></li>
+                                    {% endif %}
                                 {% endif %}
                             {% empty %}
-                                {% if documento.url != '' %}
-                                <li><a href="{{documento.url}}" target="_blank"><i class="fa fa-external-link"></i> Ir al enlace</a></li>
-                                {% else %}
                                 <li>No existen documentos en la categoría padre.</li>
-                                {% endif %}
                             {% endfor %}
                         </ul>
                         {% if hijo.categoria_set.count != 0 %}
@@ -47,16 +55,20 @@
                                 <ul class="list-unstyled">
                                     {% for documento in nieto.documento_set.all  %}
                                         {% if documento.archivo_set.count == 1 %}
-                                            <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a></li>    
+                                            <li>
+                                                <a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a> -
+                                                (<a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}" title="Enlace al documento"><i class="fa fa-link text-danger"></i></a>)
+                                                (<a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" target="_blank" title="Abrir en archivo en una pestaña nueva"><i class="fa fa-external-link text-success"></i></a>)
+                                            </li>
                                         {% else %}
-                                            <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-primary"></i> {{ documento.nombre }}</a></li>
+                                            {% if documento.enlace %}
+                                                <li><a href="{{documento.enlace}}" target="_blank" title="Enlace externo" rel="external"><i class="fa fa-external-link text-success"></i> {{documento.nombre}}</a></li>
+                                            {% else %}
+                                                <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-danger"></i> {{ documento.nombre }}</a></li>
+                                            {% endif %}
                                         {% endif %}
                                     {% empty %}
-                                        {% if documento.url != '' %}
-                                        <li><a href="{{documento.url}}" target="_blank"><i class="fa fa-external-link"></i> Ir al enlace</a></li>
-                                        {% else %}
                                         <li>No existen documentos en la categoría padre.</li>
-                                        {% endif %}
                                     {% endfor %}
                                 </ul>
                                 {% if nieto.categoria_set.count != 0 %}
@@ -67,16 +79,20 @@
                                             <ul class="list-unstyled">
                                                 {% for documento in bis.documento_set.all  %}
                                                     {% if documento.archivo_set.count == 1 %}
-                                                        <li><a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a></li>    
+                                                        <li>
+                                                            <a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a> -
+                                                            (<a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}" title="Enlace al documento"><i class="fa fa-link text-danger"></i></a>)
+                                                            (<a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" target="_blank" title="Abrir en archivo en una pestaña nueva"><i class="fa fa-external-link text-success"></i></a>)
+                                                        </li>
                                                     {% else %}
-                                                        <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-primary"></i> {{ documento.nombre }}</a></li>
+                                                        {% if documento.enlace %}
+                                                            <li><a href="{{documento.enlace}}" target="_blank" title="Enlace externo" rel="external"><i class="fa fa-external-link text-success"></i> {{documento.nombre}}</a></li>
+                                                        {% else %}
+                                                            <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-danger"></i> {{ documento.nombre }}</a></li>
+                                                        {% endif %}
                                                     {% endif %}
                                                 {% empty %}
-                                                    {% if documento.url != '' %}
-                                                    <li><a href="{{documento.url}}" target="_blank"><i class="fa fa-external-link"></i> Ir al enlace</a></li>
-                                                    {% else %}
                                                     <li>No existen documentos en la categoría padre.</li>
-                                                    {% endif %}
                                                 {% endfor %}
                                             </ul>
                                         </li>
