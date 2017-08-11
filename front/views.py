@@ -23,7 +23,7 @@ def index(request):
 
     documentos = cache.get('documentos:ultimos')
     if documentos is None:
-        documentos = Documento.objects.all().order_by('-id')[:10]
+        documentos = Documento.objects.filter(enlace = None).order_by('-id')[:10]
         cache.set('documentos:ultimos', documentos)
 
     agendas = Agenda.hoy.eventos_hoy()
