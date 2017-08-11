@@ -5,11 +5,17 @@ from django.contrib import admin
 
 from base.models import Categoria, Documento, Archivo, Participante, Agenda
 
-class CategoriaAdmin(admin.ModelAdmin):
+from django_extensions.admin import ForeignKeyAutocompleteAdmin
+
+class CategoriaAdmin(ForeignKeyAutocompleteAdmin):
     list_display = ('cadena',)
     search_fields = ['nombre',]
     list_filter = ('padre',)
     prepopulated_fields = {'slug': ('nombre',)}
+
+    related_search_fields = {
+       'padre': ('nombre',),
+    }
 
     def queryset(self, request):
         qs = super(CategoriaAdmin, self).queryset(request)
@@ -19,12 +25,16 @@ class CategoriaAdmin(admin.ModelAdmin):
 class ArchivoInline(admin.TabularInline):
     model = Archivo
 
-class DocumentoAdmin(admin.ModelAdmin):
+class DocumentoAdmin(ForeignKeyAutocompleteAdmin):
     inlines = [ArchivoInline,]
     list_display = ('nombre', 'fecha', 'categoria', 'creado_por',)
     search_fields = ['nombre']
     list_filter = ('fecha', 'categoria', 'creado_por',)
     exclude = ['creado_por']
+
+    related_search_fields = {
+       'categoria': ('nombre',),
+    }
 
     def save_model(self, request, obj, form, change):
         obj.creado_por = request.user
