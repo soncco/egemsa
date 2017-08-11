@@ -12,3 +12,7 @@ urlpatterns = [
 
 admin.site.site_header = 'Transparencia - Administración'
 admin.site.site_title = 'Transparencia - Administración'
+
+handler404 = 'front.views.handler404'
+handler500 = 'front.views.handler500'
+handler403 = 'front.views.handler403'

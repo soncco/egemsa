@@ -1,0 +1,16 @@
+{% extends 'front/base.html' %}
+{% block content %}
+
+<p>Ha ocurrido un error interno, no te preocupes no es tu culpa, estamos trabajando para solucionarlo.</p>
+<div class="well text-danger">
+  {{ value_ }}
+</div>
+<p>
+    <a href="{% url 'front:index' %}" class="btn btn-primary btn-sm"><i class="fa fa-arrow-circle-left"></i> Volver al inicio</a>
+</p>
+{% endblock %}
+
+
+{% block title %}500 - {{ value_ }}{% endblock %}
+
+{% block page %}Error interno{% endblock page %}
