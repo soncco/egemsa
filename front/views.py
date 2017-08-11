@@ -5,7 +5,6 @@ from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 
 from base.models import Categoria, Documento, Agenda, Participante
