@@ -45,7 +45,7 @@ class ParticipanteAdmin(admin.ModelAdmin):
     search_fields = ['nombre',]
 
 class AgendaAdmin(admin.ModelAdmin):
-    list_display = ('dirige', 'fecha_hora', 'lugar', 'creado_por',)
+    list_display = ('asunto', 'dirige', 'fecha_hora', 'lugar', 'creado_por',)
     search_fields = ['dirige', 'asunto']
     list_filter = ('dirige', 'fecha_hora', 'lugar', 'creado_por',)
     exclude = ['creado_por']

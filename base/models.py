@@ -90,7 +90,7 @@ class Agenda(models.Model):
     asunto = models.CharField(max_length=255)
     dirige = models.ForeignKey(Participante, related_name='Dirige')
     participan = models.ManyToManyField(Participante, related_name='Participan', blank=True)
-    junto_con = models.TextField()
+    junto_con = models.TextField(null=True, blank=True)
     fecha_hora = models.DateTimeField()
     lugar = models.CharField(max_length=255, blank=True, null=True)
     descripcion = RichTextField(null=True, blank=True)
