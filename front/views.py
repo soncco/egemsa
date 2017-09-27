@@ -89,6 +89,8 @@ def agenda(request, id):
         fecha = today
         agendas = Agenda.hoy.eventos_hoy().filter(Q(dirige = participante) | Q(participan = participante))
 
+    agendas = agendas.distinct()
+
     context = {'categorias': categorias, 'agendas': agendas, 'fecha': fecha, 'participantes': participantes, 'actual': participante}
     return render(request, 'front/agenda.html', context)
 
