@@ -143,3 +143,5 @@ CACHES = {
 }
 
 DEFAULT_FILE_STORAGE = 'utils.encodefile.ASCIIFileSystemStorage'
+
+FILE_UPLOAD_PERMISSIONS = 0640
