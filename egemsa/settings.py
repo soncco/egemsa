@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'utils.context_processors.categorias_global',
+                'django.template.context_processors.media'
             ],
         },
     },
@@ -84,6 +85,7 @@ DATABASES = {
         'NAME': config('DBNAME'),
         'USER': config('DBUSER'),
         'PASSWORD': config('DBPASS'),
+        'HOST': config('DBHOST'),
     }
 }
 
@@ -124,19 +126,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = config('STATIC_ROOT')
+STATIC_ROOT = '../static/'
 
-MEDIA_ROOT = '../static/archivos'
-MEDIA_URL = '/static/archivos/'
+MEDIA_ROOT = '../static/archivos/'
+#MEDIA_URL = '/static/archivos/'
 
+try:
+    REDIS_SERVER = config('REDIS_SERVER')
+except:
+    REDIS_SERVER = '127.0.0.1'
 
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': 'localhost:6379',
-        'OPTIONS': {
-            'DB': 2,
-            'PARSER_CLASS': 'redis.connection.HiredisParser'
+        'LOCATION': 'redis://%s:6379/1' % REDIS_SERVER,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     }
 
@@ -144,4 +149,4 @@ CACHES = {
 
 DEFAULT_FILE_STORAGE = 'utils.encodefile.ASCIIFileSystemStorage'
 
-FILE_UPLOAD_PERMISSIONS = 0640
+FILE_UPLOAD_PERMISSIONS=0o640

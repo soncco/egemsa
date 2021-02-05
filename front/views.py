@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
@@ -26,7 +23,7 @@ def index(request):
         cache.set('documentos:ultimos', documentos)
 
     agendas = Agenda.hoy.eventos_hoy()
-    
+
     context = {'categorias': categorias, 'documentos': documentos, 'agendas': agendas}
     return render(request, 'front/index.html', context)
 
@@ -64,9 +61,11 @@ def documento(request, id):
 
 def actividades(request):
     participantes = Participante.objects.all()
-    participante = participantes[:1][0]
-    
-    return agenda(request, participante.id)
+    try:
+        participante = participantes[:1][0]
+        return agenda(request, participante.id)
+    except:
+        return agenda(request, 0)
 
 
 def agenda(request, id):
@@ -135,19 +134,19 @@ def buscar(request):
         documentos = paginator.page(paginator.num_pages)
 
     if first != '':
-        cats = [ int(x) for x in cats ]    
+        cats = [ int(x) for x in cats ]
         context = {'categorias': categorias, 'documentos': documentos, 'cats': cats, 'desde': desde, 'hasta': hasta}
     else:
         context = {'categorias': categorias, 'documentos': documentos}
 
     return render(request, 'front/buscar.html', context)
 
-def handler404(request):
+def handler404(request, exception):
     response = render(request, 'front/404.html', {})
     response.status_code = 403
     return response
 
-def handler403(request):
+def handler403(request, exception):
     response = render(request, 'front/403.html', {})
     response.status_code = 403
     return response

@@ -1,7 +1,7 @@
 {% extends "front/base.html" %}
 {% load static %}
 {% block content %}
-    
+
     <div class="row">
         <div class="col-md-8">
             <ul class="list-unstyled">
@@ -41,7 +41,7 @@
         </div>
         <div class="col-md-4">
             <h3>Búsqueda Avanzada</h3>
-            <form class="busqueda-form" action="{% url 'front:buscar' %}" method="get">
+            <form id="busqueda-form" action="{% url 'front:buscar' %}" method="get">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Buscar" name="q" value="{% if request.GET.q %}{{request.GET.q}}{%endif%}">
               </div>
@@ -62,16 +62,18 @@
               <h4>Fechas</h4>
               <div class="form-inline">
                 <div class="form-group">
-                  <input type="text" class="form-control desde" placeholder="Desde" value="{% if desde %}{{desde|date:"d M Y"}}{% endif %}">
+                  <input type="text" class="form-control dtp" placeholder="Desde" value="{% if desde %}{{desde|date:"d M Y"}}{% endif %}" id="desdep">
                   <input type="hidden" name="desde" value="{% if desde %}{{desde|date:"U"}}{% endif %}" id="desde">
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control hasta" placeholder="Hasta"value="{% if hasta %}{{hasta|date:"d M Y"}}{% endif %}">
+                  <input type="text" class="form-control dtp" placeholder="Hasta"value="{% if hasta %}{{hasta|date:"d M Y"}}{% endif %}" id="hastap">
                   <input type="hidden" name="hasta" value="{% if hasta %}{{hasta|date:"U"}}{% endif %}" id="hasta">
                 </div>
               </div>
               <hr>
+              <div class="d-grid gap-2">
               <button class="btn btn-block btn-primary"><i class="fa fa-search"></i> Buscar</button>
+              </div>
             </form>
         </div>
     </div>
@@ -82,24 +84,16 @@
 {% block page %}Resultados de búsqueda{% endblock page %}
 
 {% block breadcrumb %}
+  <nav aria-label="breadcrumb">
     <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <li clasS="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
         <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:index" %}"><span itemprop="name">Inicio</span></a>
         <meta itemprop="position" content="1">
       </li>
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
-        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:buscar" %}" class="hidden"><span itemprop="name">Búsqueda</span></a>
+      <li clasS="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
         Búsqueda
         <meta itemprop="position" content="2">
       </li>
     </ol>
+    </nav>
 {% endblock breadcrumb %}
-
-{% block js %}
-    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="{% static "front/js/datepicker.js" %}"></script>
-{% endblock js %}
-
-{% block css %}
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-{% endblock css %}

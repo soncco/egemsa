@@ -1,6 +1,6 @@
 {% extends "front/base.html" %}
 {% block content %}
-    
+
     <div class="row">
         <div class="col-md-8">
             <div class="arbol">
@@ -97,7 +97,7 @@
                                             </ul>
                                         </li>
                                     {% endfor %}
-                                </ul>                                
+                                </ul>
                                 {% endif %}
                             </li>
                             {% endfor %}
@@ -108,7 +108,7 @@
                       <li>No existen documentos o categorías</li>
                   {% endfor %}
                 </ul>
-            
+
 
             </div>
         </div>
@@ -136,83 +136,78 @@ Documentos en {{categoria.nombre}}
 {% endblock page %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:index" %}"><span itemprop="name">Inicio</span></a>
-        <meta itemprop="position" content="1">
-      </li>
-      {% if categoria.padre.padre.padre  %}
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.padre.padre.slug %}"><span itemprop="name">{{categoria.padre.padre.padre.nombre}}</span></a>
-            <meta itemprop="position" content="2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+        <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:index" %}"><span itemprop="name">Inicio</span></a>
+            <meta itemprop="position" content="1">
         </li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.padre.slug %}"><span itemprop="name">{{categoria.padre.padre.nombre}}</span></a>
-            <meta itemprop="position" content="3">
-        </li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.slug %}"><span itemprop="name">{{categoria.padre.nombre}}</span></a>
-            <meta itemprop="position" content="4">
-        </li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}" class="hidden"><span itemprop="name">{{categoria.nombre}}</span></a>
-            {{categoria.nombre}}
-            <meta itemprop="position" content="5">
-        </li>
-      {% endif %}
+        {% if categoria.padre.padre.padre  %}
+            <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.padre.padre.slug %}"><span itemprop="name">{{categoria.padre.padre.padre.nombre}}</span></a>
+                <meta itemprop="position" content="2">
+            </li>
+            <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.padre.slug %}"><span itemprop="name">{{categoria.padre.padre.nombre}}</span></a>
+                <meta itemprop="position" content="3">
+            </li>
+            <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.slug %}"><span itemprop="name">{{categoria.padre.nombre}}</span></a>
+                <meta itemprop="position" content="4">
+            </li>
+            <li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                {{categoria.nombre}}
+                <meta itemprop="position" content="5">
+            </li>
+        {% endif %}
 
-      {% if categoria.padre.padre.padre == None and categoria.padre.padre %}
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.padre.slug %}"><span itemprop="name">{{categoria.padre.padre.nombre}}</span></a>
-            <meta itemprop="position" content="2">
-        </li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.slug %}"><span itemprop="name">{{categoria.padre.nombre}}</span></a>
-            <meta itemprop="position" content="3">
-        </li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}" class="hidden"><span itemprop="name">{{categoria.nombre}}</span></a>
-            {{categoria.nombre}}
-            <meta itemprop="position" content="4">
-        </li>
-      {% endif %}
+        {% if categoria.padre.padre.padre == None and categoria.padre.padre %}
+            <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.padre.slug %}"><span itemprop="name">{{categoria.padre.padre.nombre}}</span></a>
+                <meta itemprop="position" content="2">
+            </li>
+            <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.slug %}"><span itemprop="name">{{categoria.padre.nombre}}</span></a>
+                <meta itemprop="position" content="3">
+            </li>
+            <li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                {{categoria.nombre}}
+                <meta itemprop="position" content="4">
+            </li>
+        {% endif %}
 
-      {% if categoria.padre.padre == None and categoria.padre %}
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.slug %}"><span itemprop="name">{{categoria.padre.nombre}}</span></a>
-            <meta itemprop="position" content="2">
-        </li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}" class="hidden"><span itemprop="name">{{categoria.nombre}}</span></a>
-            {{categoria.nombre}}
-            <meta itemprop="position" content="3">
-        </li>
-      {% endif %}
+        {% if categoria.padre.padre == None and categoria.padre %}
+            <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.padre.slug %}"><span itemprop="name">{{categoria.padre.nombre}}</span></a>
+                <meta itemprop="position" content="2">
+            </li>
+            <li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                {{categoria.nombre}}
+                <meta itemprop="position" content="3">
+            </li>
+        {% endif %}
 
-      {% if categoria.padre == None %}
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:categoria" categoria.slug %}" class="hidden"><span itemprop="name">{{categoria.nombre}}</span></a>
-            {{categoria.nombre}}
-            <meta itemprop="position" content="2">
-        </li>
-      {% endif %}
-      
-    </ol>
+        {% if categoria.padre == None %}
+            <li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                {{categoria.nombre}}
+                <meta itemprop="position" content="2">
+            </li>
+        {% endif %}
+
+        </ol>
+    </nav>
 {% endblock breadcrumb %}
 
 {% block modal %}
-    <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="commonModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+    <div class="modal fade" id="commonModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-            <h4 class="modal-title" id="commonModalLabel"></h4>
+            <h5 class="modal-title">Vista de documento</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
           </div>
           <div class="modal-body">
-            <iframe src="" style="zoom:0.60" width="99.6%" height="600" frameborder="0" id="youtube-iframe" allowfullscreen></iframe>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <iframe src="" style="zoom:0.60" width="99.6%" height="1200" frameborder="0" id="iframepdf" allowfullscreen></iframe>
           </div>
         </div>
       </div>

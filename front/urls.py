@@ -1,15 +1,15 @@
-from django.conf.urls import url
+from django.urls import path
 
-from . import views
+from front import views
 
 app_name = 'front'
 urlpatterns = [
 
-    url(r'^$', views.index, name = 'index'),
-    url(r'^categoria/(?P<slug>[-\w]+)/$', views.categoria, name = 'categoria'),
-    url(r'^actividades-oficiales/$', views.actividades, name = 'actividades'),
-    url(r'^documento/(?P<id>.*)$', views.documento, name = 'documento'),
-    url(r'^agenda/(?P<id>.*)$', views.agenda, name = 'agenda'),
-    url(r'^evento/(?P<id>.*)$', views.evento, name = 'evento'),
-    url(r'^buscar/$', views.buscar, name = 'buscar'),
+    path('', views.index, name = 'index'),
+    path('categoria/<slug:slug>/', views.categoria, name = 'categoria'),
+    path('actividades-oficiales/', views.actividades, name = 'actividades'),
+    path('documento/<int:id>', views.documento, name = 'documento'),
+    path('agenda/<int:id>', views.agenda, name = 'agenda'),
+    path('evento/<int:id>', views.evento, name = 'evento'),
+    path('buscar/', views.buscar, name = 'buscar'),
 ]

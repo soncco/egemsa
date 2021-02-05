@@ -21,9 +21,9 @@
                                 </ul>
                             {% endif %}
                         </li>
-                        <li><i class="fa fa-user-o"></i> <strong>Junto con</strong>: {{evento.junto_con}}</li>                
-                        <li><i class="fa fa-clock-o"></i> <strong>Hora</strong>: {{evento.fecha_hora}}</li>                
-                        <li><i class="fa fa-map-marker"></i> <strong>Lugar</strong>: {{evento.lugar}}</li>                
+                        <li><i class="fa fa-user-o"></i> <strong>Junto con</strong>: {{evento.junto_con}}</li>
+                        <li><i class="fa fa-clock-o"></i> <strong>Hora</strong>: {{evento.fecha_hora}}</li>
+                        <li><i class="fa fa-map-marker"></i> <strong>Lugar</strong>: {{evento.lugar}}</li>
                     </ul>
                 </div>
             </div>
@@ -37,24 +37,25 @@
 {% block page %}{{evento.asunto}}{% endblock page %}
 
 {% block breadcrumb %}
+    <nav aria-label="breadcrumb">
     <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
         <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:index" %}"><span itemprop="name">Inicio</span></a>
         <meta itemprop="position" content="1">
       </li>
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
+      <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
         <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:actividades" %}"><span itemprop="name">Actividades oficiales</span></a>
         <meta itemprop="position" content="2">
       </li>
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
+      <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
         <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:agenda" evento.dirige.pk %}"><span itemprop="name">{{evento.dirige.nombre}}</span></a>
         <meta itemprop="position" content="3">
       </li>
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
-        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:evento" evento.pk %}" class="hidden"><span itemprop="name">{{evento.asunto}}</span></a>
+      <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
         {{ evento.asunto }}
         <meta itemprop="position" content="4">
       </li>
     </ol>
+    </nav>
 {% endblock breadcrumb %}
 

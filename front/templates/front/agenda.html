@@ -16,7 +16,7 @@
                 <tr>
                     <td>{{agenda.fecha_hora|date:"h:i"}}</td>
                     <td><a href="{% url 'front:evento' agenda.pk %}">{{agenda.asunto}}</a></td>
-                    <td>{{agenda.lugar}}</td>                   
+                    <td>{{agenda.lugar}}</td>
                 </tr>
             {% empty %}
                 <tr>
@@ -28,25 +28,23 @@
         </div>
         <div class="col-md-4">
             <div class="sidebar">
-                <div class="well">
+                <div class="card card-body bg-light mb-4">
                     <form action="{% url 'front:agenda' actual.pk %}" method="get">
                         <label for="datepicker">Fecha actual:</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control datepicker" id="datepicker" value="{{fecha|date:"d M Y"}}" required>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control dtp" id="datepicker" value="{{fecha|date:"d M Y"}}" required>
                             <input type="hidden" name="fecha" value="{{fecha|date:"U"}}" id="fecha">
-                            <span class="input-group-btn">
-                                <button class="btn btn-info" type="submit"><i class="fa fa-arrow-right"></i></button>
-                            </span>
+                            <button class="btn btn-info" type="submit"><i class="fa fa-arrow-right"></i></button>
                         </div>
                     </form>
                 </div>
-                <h3>Ver agenda organizada por</h3>  
+                <h3>Ver agenda organizada por</h3>
                 <ul class="list-unstyled">
                     {% for participante in participantes %}
                     {% if actual.id == participante.id  %}
                         <li class="comun-lista active">{{ participante.nombre }} </li>
                     {% else %}
-                        <li class="comun-lista"><a href="{% url 'front:agenda' participante.pk %}">{{ participante.nombre }}</a></li>                    
+                        <li class="comun-lista"><a href="{% url 'front:agenda' participante.pk %}">{{ participante.nombre }}</a></li>
                     {% endif %}
                     {% endfor %}
                 </ul>
@@ -67,28 +65,28 @@
 {% block page %}Actividades oficiales{% endblock page %}
 
 {% block breadcrumb %}
+    <nav aria-label="breadcrumb">
     <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <li  class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
         <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:index" %}"><span itemprop="name">Inicio</span></a>
         <meta itemprop="position" content="1">
       </li>
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
+      <li  class="breadcrumb-item"  itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
         <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:actividades" %}"><span itemprop="name">Actividades oficiales</span></a>
         <meta itemprop="position" content="2">
       </li>
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
-        <a itemtype="http://schema.org/Thing" itemprop="item" href="{% url "front:agenda" actual.pk %}" class="hidden"><span itemprop="name">{{actual.nombre}}</span></a>
+      <li  class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="active">
         {{ actual.nombre }}
         <meta itemprop="position" content="3">
       </li>
     </ol>
+    </nav>
 {% endblock breadcrumb %}
 
 {% block js %}
-    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="{% static "front/js/datepicker.js" %}"></script>
+
 {% endblock js %}
 
 {% block css %}
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 {% endblock css %}

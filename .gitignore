@@ -54,5 +54,6 @@ lib-cov
 benchmarks/*.png
 node_modules
 bower_components
-*/migrations/*
 *.xlsx
+dockerdata
+front/static/front/css/styles.css

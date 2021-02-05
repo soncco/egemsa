@@ -1,8 +1,4 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import User
 
 from datetime import datetime, timedelta, time
@@ -13,11 +9,10 @@ class CategoriaManager(models.Manager):
     def all(self):
         return self.filter(padre = None)
 
-@python_2_unicode_compatible
 class Categoria(models.Model):
     nombre = models.CharField(max_length=255)
     slug = models.SlugField(max_length=100, unique=True)
-    padre = models.ForeignKey('Categoria', blank=True, null=True)
+    padre = models.ForeignKey('Categoria', blank=True, null=True, on_delete=models.DO_NOTHING)
 
     def cadena(self):
         if self.padre is None:
@@ -32,23 +27,21 @@ class Categoria(models.Model):
     padres = CategoriaManager()
 
 
-@python_2_unicode_compatible
 class Documento(models.Model):
-    categoria = models.ForeignKey(Categoria)
+    categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     nombre = models.CharField(max_length=255)
     fecha = models.DateField()
     descripcion = RichTextField(null=True, blank=True)
     enlace = models.URLField(max_length=255, blank=True, null=True)
-    creado_por = models.ForeignKey(User)
+    creado_por = models.ForeignKey(User, on_delete=models.PROTECT)
     orden_anual = models.BooleanField(default=False)
 
     def __str__(self):
         return self.nombre
 
-@python_2_unicode_compatible
 class Archivo(models.Model):
     fecha = models.DateField()
-    pertenece_a = models.ForeignKey(Documento)
+    pertenece_a = models.ForeignKey(Documento, on_delete=models.DO_NOTHING)
     nombre = models.CharField(max_length=255)
     archivo = models.FileField(upload_to='', max_length=255)
 
@@ -69,7 +62,6 @@ class Archivo(models.Model):
     def __str__(self):
         return self.nombre
 
-@python_2_unicode_compatible
 class Participante(models.Model):
     nombre = models.CharField(max_length=255)
     def __str__(self):
@@ -85,16 +77,15 @@ class AgendaManager(models.Manager):
         return agendas
 
 
-@python_2_unicode_compatible
 class Agenda(models.Model):
     asunto = models.CharField(max_length=255)
-    dirige = models.ForeignKey(Participante, related_name='Dirige')
+    dirige = models.ForeignKey(Participante, related_name='Dirige', on_delete=models.PROTECT)
     participan = models.ManyToManyField(Participante, related_name='Participan', blank=True)
     junto_con = models.TextField(null=True, blank=True)
     fecha_hora = models.DateTimeField()
     lugar = models.CharField(max_length=255, blank=True, null=True)
     descripcion = RichTextField(null=True, blank=True)
-    creado_por = models.ForeignKey(User)
+    creado_por = models.ForeignKey(User, on_delete=models.PROTECT)
 
     objects = models.Manager()
     hoy = AgendaManager()

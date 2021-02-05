@@ -1,0 +1,19 @@
+{
+  "name": "transparencia",
+  "version": "2.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "stylus": "stylus ./src/styles.styl -c -o ./front/static/front/css/styles.css",
+    "watch:css": "onchange ./src/styles.styl -- npm run stylus",
+    "watch": "npm-run-all --parallel watch:*"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0",
+    "stylus": "^0.54.8"
+  },
+  "dependencies": {}
+}

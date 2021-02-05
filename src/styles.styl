@@ -6,33 +6,35 @@ $grey = #EDF2F6
 body
     font-family 'Raleway', sans-serif
 
+a
+    color: #337ab7
+#main
+    a:link
+        text-decoration: none
+
+    a:hover
+        text-decoration: underline
 
 // Bootstrap
-.modal.modal-large .modal-dialog 
-    width 80%
-    height 100vh
+@media (min-width 576px)
+    .modal-dialog
+        max-width none
 
-.modal.modal-large .modal-body 
-    overflow-y auto
-    
 .modal-dialog
-    width 95%
+    width 98%
+    height 92%
+    padding 0
 
-
-.navbar-inverse
-    background $azulbg
-    border-color $azulbg
-    
-    .navbar-nav>li>a
-    .navbar-brand
-        color #e2edff
+.modal-content,
+.modal-body
+    height 99%
 
 h1
     color $azul
-    
+
 h2
     color $verde
-    
+
 .categoria
     background $grey
     padding 5px 10px
@@ -41,26 +43,26 @@ h2
     margin-bottom 10px
     &:hover
         background #f1f1f1
-        
+
     h4
         font-size 14px
-        
+
 
 .documento-lista
     border-bottom 1px solid $grey
     padding 4px 0
-    
+
     .categoria-lista
     .fecha-lista
         font-size 12px
         color #888
-        
+
         a
             color $verde
-        
+
     .fecha-lista
         color #6d6d6d
-        
+
 
 .arbol
     h2
@@ -69,11 +71,11 @@ h2
         font-size 17px
     h4
         font-size 14px
-        
+
     h2, h3, h4
         margin-bottom 0
         color #3f945e
-        
+
 .sidebar
     h3
         color $azul
@@ -90,29 +92,35 @@ h2
                 &:hover
                     background #f1f1f1
                     border-color #cdcaca
-                
+
             &.active
                 padding 8px 10px
                 font-weight bold
-                
+
 
 .documento-fecha
     color #6d6d6d
     font-size 12px
-        
+
 
 .agenda-lista
     border-bottom 1px solid $grey
     padding 4px 0
-    
+
     .organiza
         font-size 12px
         color #888
-        
+
     .fecha-lista
         color #6d6d6d
-        
+
 .evento-meta
     .fa
         width 20px
         color $verde
+
+.breadcrumb
+    padding: 8px 15px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border-radius: 4px
