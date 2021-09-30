@@ -8,15 +8,15 @@
                     {% for documento in categoria.documento_set.all|dictsortreversed:"fecha"  %}
                         {% if documento.archivo_set.count == 1 %}
                             <li>
-                                <a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a> -
-                                (<a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}" title="Enlace al documento"><i class="fa fa-link text-danger"></i></a>)
-                                (<a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" target="_blank" title="Abrir en archivo en una pestaña nueva"><i class="fa fa-external-link text-success"></i></a>)
+                                <a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fas {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a> -
+                                (<a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}" title="Enlace al documento"><i class="fas fa-link text-danger"></i></a>)
+                                (<a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" target="_blank" title="Abrir en archivo en una pestaña nueva"><i class="fas fa-external-link-alt text-success"></i></a>)
                             </li>
                         {% else %}
                             {% if documento.enlace %}
-                                <li><a href="{{documento.enlace}}" target="_blank" title="Enlace externo" rel="external"><i class="fa fa-external-link text-success"></i> {{documento.nombre}}</a></li>
+                                <li><a href="{{documento.enlace}}" target="_blank" title="Enlace externo" rel="external"><i class="fas fa-external-link-alt text-success"></i> {{documento.nombre}}</a></li>
                             {% else %}
-                                <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-danger"></i> {{ documento.nombre }}</a></li>
+                                <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fas fa-link text-danger"></i> {{ documento.nombre }}</a></li>
                             {% endif %}
                         {% endif %}
                     {% empty %}
@@ -32,15 +32,15 @@
                             {% for documento in hijo.documento_set.all|dictsortreversed:"fecha"  %}
                                 {% if documento.archivo_set.count == 1 %}
                                     <li>
-                                        <a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a> -
-                                        (<a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}" title="Enlace al documento"><i class="fa fa-link text-danger"></i></a>)
-                                        (<a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" target="_blank" title="Abrir en archivo en una pestaña nueva"><i class="fa fa-external-link text-success"></i></a>)
+                                        <a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fas {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a> -
+                                        (<a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}" title="Enlace al documento"><i class="fas fa-link text-danger"></i></a>)
+                                        (<a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" target="_blank" title="Abrir en archivo en una pestaña nueva"><i class="fas fa-external-link-alt text-success"></i></a>)
                                     </li>
                                 {% else %}
                                     {% if documento.enlace %}
-                                        <li><a href="{{documento.enlace}}" target="_blank" title="Enlace externo" rel="external"><i class="fa fa-external-link text-success"></i> {{documento.nombre}}</a></li>
+                                        <li><a href="{{documento.enlace}}" target="_blank" title="Enlace externo" rel="external"><i class="fas fa-external-link-alt text-success"></i> {{documento.nombre}}</a></li>
                                     {% else %}
-                                        <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-danger"></i> {{ documento.nombre }}</a></li>
+                                        <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fas fa-link text-danger"></i> {{ documento.nombre }}</a></li>
                                     {% endif %}
                                 {% endif %}
                             {% empty %}
@@ -56,15 +56,15 @@
                                     {% for documento in nieto.documento_set.all|dictsortreversed:"fecha"  %}
                                         {% if documento.archivo_set.count == 1 %}
                                             <li>
-                                                <a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a> -
-                                                (<a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}" title="Enlace al documento"><i class="fa fa-link text-danger"></i></a>)
-                                                (<a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" target="_blank" title="Abrir en archivo en una pestaña nueva"><i class="fa fa-external-link text-success"></i></a>)
+                                                <a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fas {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a> -
+                                                (<a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}" title="Enlace al documento"><i class="fas fa-link text-danger"></i></a>)
+                                                (<a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" target="_blank" title="Abrir en archivo en una pestaña nueva"><i class="fas fa-external-link-alt text-success"></i></a>)
                                             </li>
                                         {% else %}
                                             {% if documento.enlace %}
-                                                <li><a href="{{documento.enlace}}" target="_blank" title="Enlace externo" rel="external"><i class="fa fa-external-link text-success"></i> {{documento.nombre}}</a></li>
+                                                <li><a href="{{documento.enlace}}" target="_blank" title="Enlace externo" rel="external"><i class="fas fa-external-link-alt text-success"></i> {{documento.nombre}}</a></li>
                                             {% else %}
-                                                <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-danger"></i> {{ documento.nombre }}</a></li>
+                                                <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fas fa-link text-danger"></i> {{ documento.nombre }}</a></li>
                                             {% endif %}
                                         {% endif %}
                                     {% empty %}
@@ -80,15 +80,15 @@
                                                 {% for documento in bis.documento_set.all|dictsortreversed:"fecha"  %}
                                                     {% if documento.archivo_set.count == 1 %}
                                                         <li>
-                                                            <a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fa {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a> -
-                                                            (<a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}" title="Enlace al documento"><i class="fa fa-link text-danger"></i></a>)
-                                                            (<a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" target="_blank" title="Abrir en archivo en una pestaña nueva"><i class="fa fa-external-link text-success"></i></a>)
+                                                            <a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fas {{documento.archivo_set.all.0.extension}}"></i> {{ documento.nombre }}</a> -
+                                                            (<a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}" title="Enlace al documento"><i class="fas fa-link text-danger"></i></a>)
+                                                            (<a href="{{documento.archivo_set.all.0.archivo.url}}" data-pk="{{documento.pk}}" target="_blank" title="Abrir en archivo en una pestaña nueva"><i class="fas fa-external-link-alt text-success"></i></a>)
                                                         </li>
                                                     {% else %}
                                                         {% if documento.enlace %}
-                                                            <li><a href="{{documento.enlace}}" target="_blank" title="Enlace externo" rel="external"><i class="fa fa-external-link text-success"></i> {{documento.nombre}}</a></li>
+                                                            <li><a href="{{documento.enlace}}" target="_blank" title="Enlace externo" rel="external"><i class="fas fa-external-link-alt text-success"></i> {{documento.nombre}}</a></li>
                                                         {% else %}
-                                                            <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fa fa-link text-danger"></i> {{ documento.nombre }}</a></li>
+                                                            <li><a href="{% url 'front:documento' documento.pk %}" data-pk="{{documento.pk}}"><i class="fas fa-link text-danger"></i> {{ documento.nombre }}</a></li>
                                                         {% endif %}
                                                     {% endif %}
                                                 {% empty %}
