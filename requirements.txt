@@ -1,4 +1,4 @@
-asgiref==3.3.1
+asgiref==3.4.1
 blessings==1.7
 bpython==0.21
 certifi==2020.12.5
@@ -6,7 +6,7 @@ chardet==4.0.0
 charset-normalizer==2.0.6
 curtsies==0.3.5
 cwcwidth==0.1.2
-Django==3.1.6
+Django==3.2.7
 django-ckeditor==6.0.0
 django-extensions==3.1.0
 django-js-asset==1.2.2
@@ -23,4 +23,5 @@ redis==3.5.3
 requests==2.26.0
 six==1.15.0
 sqlparse==0.4.1
+typing-extensions==3.10.0.2
 urllib3==1.26.3
