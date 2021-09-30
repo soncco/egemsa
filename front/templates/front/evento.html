@@ -11,8 +11,8 @@
             <div class="evento-meta">
                 <h3>Información del evento</h3>
                     <ul class="list-unstyled">
-                        <li><i class="fa fa-user"></i> <strong>Dirige</strong>: {{evento.dirige}}</li>
-                        <li><i class="fa fa-users"></i> <strong>Participan</strong>:
+                        <li><i class="fas fa-user"></i> <strong>Dirige</strong>: {{evento.dirige}}</li>
+                        <li><i class="fas fa-users"></i> <strong>Participan</strong>:
                             {% if evento.participan.count != 0 %}
                                 <ul>
                                     {% for participante in evento.participan.all %}
@@ -21,9 +21,9 @@
                                 </ul>
                             {% endif %}
                         </li>
-                        <li><i class="fa fa-user-o"></i> <strong>Junto con</strong>: {{evento.junto_con}}</li>
-                        <li><i class="fa fa-clock-o"></i> <strong>Hora</strong>: {{evento.fecha_hora}}</li>
-                        <li><i class="fa fa-map-marker"></i> <strong>Lugar</strong>: {{evento.lugar}}</li>
+                        <li><i class="fas fa-user"></i> <strong>Junto con</strong>: {{evento.junto_con}}</li>
+                        <li><i class="fas fa-clock"></i> <strong>Hora</strong>: {{evento.fecha_hora}}</li>
+                        <li><i class="fas fa-map-marker"></i> <strong>Lugar</strong>: {{evento.lugar}}</li>
                     </ul>
                 </div>
             </div>

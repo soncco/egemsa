@@ -21,7 +21,7 @@
                 <li class="documento-lista">
                     <a href="{% url 'front:documento' documento.id %}">{{documento.nombre}}</a> <br>
                     <span class="categoria-lista" title="Categoría"><i class="fas fa-tag"></i> {{documento.categoria.cadena}}</span> <br>
-                    <span class="fecha-lista" title="Fecha de subida"><i class="far fa-calendar"></i> {{documento.fecha|date:"d M Y"}}</span>
+                    <span class="fecha-lista" title="Fecha de subida"><i class="fas fa-calendar"></i> {{documento.fecha|date:"d M Y"}}</span>
                 </li>
             {% empty %}
                 <li>No existen documentos</li>
