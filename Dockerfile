@@ -2,7 +2,7 @@ FROM python:3.7
 ENV PYTHONUNBUFFERED=1
 
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt-get update \
+RUN apt-get update --allow-releaseinfo-change \
   && apt-get install -y locales \
   && sed -i -e 's/# es_PE.UTF-8 UTF-8/es_PE.UTF-8 UTF-8/' /etc/locale.gen \
   && dpkg-reconfigure --frontend=noninteractive locales \
