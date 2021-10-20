@@ -149,4 +149,6 @@ CACHES = {
 
 DEFAULT_FILE_STORAGE = 'utils.encodefile.ASCIIFileSystemStorage'
 
-FILE_UPLOAD_PERMISSIONS=0o640
+FILE_UPLOAD_PERMISSIONS = 0o640
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
