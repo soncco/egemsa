@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.9
 ENV PYTHONUNBUFFERED=1
 
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
@@ -9,7 +9,7 @@ RUN apt-get update --allow-releaseinfo-change \
   && apt-get install -y nodejs \
   && apt-get install -y vim
 
-ENV LANG es_PE.UTF-8
+ENV LANG pt_BR.UTF-8
 ENV LC_ALL es_PE.UTF-8
 
 RUN mkdir /code
