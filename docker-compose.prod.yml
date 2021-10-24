@@ -5,10 +5,12 @@ services:
     image: mysql:5.7
     volumes:
       - ./dockerdata/dbdata:/var/lib/mysql
+    restart: always
     env_file: .env
 
   redis:
     image: redis:latest
+    restart: always
     ports:
       - '127.0.0.1:6379:6379'
     volumes:
@@ -16,6 +18,7 @@ services:
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
+    restart: always
     volumes:
       - .:/code
     ports:
@@ -26,6 +29,7 @@ services:
 
   pma:
     image: phpmyadmin:latest
+    restart: always
     ports:
       - "8800:80"
     env_file: .env
