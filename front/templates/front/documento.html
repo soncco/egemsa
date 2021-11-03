@@ -18,16 +18,14 @@
               <thead>
                 <tr>
                   <th>Nombre</th>
-                  <th>Archivo</th>
                   <th>Fecha</th>
                 </tr>
               </thead>
               <tbody>
               {% for archivo in documento.archivo_set.all|dictsortreversed:"fecha" %}
                 <tr>
-                  <td>{{archivo.nombre}}</td>
                   <td>
-                    <a href="{{archivo.archivo.url}}" target="_blank" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fas {{archivo.extension}}"></i> {{archivo.archivo}}</a>
+                    <a href="{{archivo.archivo.url}}" target="_blank" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fas {{archivo.extension}}"></i> {{archivo.nombre}}</a>
                     <a href="{{archivo.archivo.url}}" target="_blank"><i class="fas fa-external-link-alt text-success"></i></a>
                     </td>
                   <td>{{archivo.fecha|date:"d M Y"}}</td>
@@ -44,18 +42,16 @@
                   <tr>
                     <th>Fecha</th>
                     <th>Nombre</th>
-                    <th>Archivo</th>
                   </tr>
                 </thead>
                 <tbody>
                 {% for archivo in item.list %}
                   <tr>
                     <td>{{archivo.fecha|date:"d M Y"}}</td>
-                    <td>{{archivo.nombre}}</td>
                     <td>
-                      <a href="{{archivo.archivo.url}}" target="_blank" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fas {{archivo.extension}}"></i> {{archivo.archivo}}</a>
+                      <a href="{{archivo.archivo.url}}" target="_blank" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fas {{archivo.extension}}"></i> {{archivo.nombre}}</a>
                       <a href="{{archivo.archivo.url}}" target="_blank"><i class="fas fa-external-link-alt text-success"></i></a>
-                      </td>
+                    </td>
                   </tr>
                 {% endfor %}
                 </tbody>

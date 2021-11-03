@@ -1,5 +1,6 @@
 .sortable {
   border-spacing: 0;
+  table-layout: fixed;
 }
 .sortable td,
 .sortable th {
