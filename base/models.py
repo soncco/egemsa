@@ -5,14 +5,17 @@ from datetime import datetime, timedelta, time
 
 from ckeditor.fields import RichTextField
 
+
 class CategoriaManager(models.Manager):
     def all(self):
-        return self.filter(padre = None)
+        return self.filter(padre=None)
+
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=255)
     slug = models.SlugField(max_length=100, unique=True)
-    padre = models.ForeignKey('Categoria', blank=True, null=True, on_delete=models.DO_NOTHING)
+    padre = models.ForeignKey('Categoria', blank=True,
+                              null=True, on_delete=models.DO_NOTHING)
 
     def cadena(self):
         if self.padre is None:
@@ -39,6 +42,7 @@ class Documento(models.Model):
     def __str__(self):
         return self.nombre
 
+
 class Archivo(models.Model):
     fecha = models.DateField()
     pertenece_a = models.ForeignKey(Documento, on_delete=models.DO_NOTHING)
@@ -51,36 +55,44 @@ class Archivo(models.Model):
     def extension(self):
         ext = self.ext()
         if ext == 'doc' or ext == 'docx':
-            return 'fa-file-word-o text-info'
+            return 'fa-file-word text-info'
         elif ext == 'xls' or ext == 'xlsx':
-            return 'fa-file-excel-o text-success'
+            return 'fa-file-excel text-success'
         elif ext == 'pdf':
-            return 'fa-file-pdf-o text-danger'
+            return 'fa-file-pdf text-danger'
         else:
-            return 'fa-file-o text-warning'
+            return 'fa-file text-warning'
 
     def __str__(self):
         return self.nombre
+
 
 class Participante(models.Model):
     nombre = models.CharField(max_length=255)
+
     def __str__(self):
         return self.nombre
+
 
 today = datetime.now().date()
 tomorrow = today + timedelta(1)
 today_start = datetime.combine(today, time())
 today_end = datetime.combine(tomorrow, time())
+
+
 class AgendaManager(models.Manager):
     def eventos_hoy(self):
-        agendas = self.filter(fecha_hora__lte=today_end, fecha_hora__gte=today_start).order_by('fecha_hora')
+        agendas = self.filter(fecha_hora__lte=today_end,
+                              fecha_hora__gte=today_start).order_by('fecha_hora')
         return agendas
 
 
 class Agenda(models.Model):
     asunto = models.CharField(max_length=255)
-    dirige = models.ForeignKey(Participante, related_name='Dirige', on_delete=models.PROTECT)
-    participan = models.ManyToManyField(Participante, related_name='Participan', blank=True)
+    dirige = models.ForeignKey(
+        Participante, related_name='Dirige', on_delete=models.PROTECT)
+    participan = models.ManyToManyField(
+        Participante, related_name='Participan', blank=True)
     junto_con = models.TextField(null=True, blank=True)
     fecha_hora = models.DateTimeField()
     lugar = models.CharField(max_length=255, blank=True, null=True)
