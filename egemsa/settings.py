@@ -129,7 +129,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = config('STATIC')
 
 MEDIA_ROOT = '../static/archivos/'
-#MEDIA_URL = '/static/archivos/'
+MEDIA_URL = '/static/archivos/'
 
 try:
     REDIS_SERVER = config('REDIS_SERVER')
