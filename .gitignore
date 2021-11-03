@@ -57,3 +57,5 @@ bower_components
 *.xlsx
 dockerdata
 front/static/front/css/styles.css
+
+/static/
