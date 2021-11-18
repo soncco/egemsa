@@ -125,11 +125,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = config('STATIC')
+STATIC_URL = config('STATIC_URL')
+STATIC_ROOT = config('STATIC_ROOT')
 
-MEDIA_ROOT = '../static/archivos/'
-MEDIA_URL = '/static/archivos/'
+MEDIA_ROOT = config('MEDIA_ROOT')
+MEDIA_URL = config('MEDIA_URL')
 
 try:
     REDIS_SERVER = config('REDIS_SERVER')
@@ -149,6 +149,6 @@ CACHES = {
 
 DEFAULT_FILE_STORAGE = 'utils.encodefile.ASCIIFileSystemStorage'
 
-FILE_UPLOAD_PERMISSIONS = 0o640
+FILE_UPLOAD_PERMISSIONS = 0o644
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
