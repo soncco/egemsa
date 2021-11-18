@@ -28,7 +28,7 @@
                     <a href="{{archivo.archivo.url}}" target="_blank" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fas {{archivo.extension}}"></i> {{archivo.nombre}}</a>
                     <a href="{{archivo.archivo.url}}" target="_blank"><i class="fas fa-external-link-alt text-success"></i></a>
                     </td>
-                  <td>{{archivo.fecha|date:"d M Y"}}</td>
+                  <td>{{archivo.fecha|date:"d/m/Y"}}</td>
                 </tr>
               {% endfor %}
               </tbody>
@@ -47,7 +47,7 @@
                 <tbody>
                 {% for archivo in item.list %}
                   <tr>
-                    <td>{{archivo.fecha|date:"d M Y"}}</td>
+                    <td>{{archivo.fecha|date:"d/m/Y"}}</td>
                     <td>
                       <a href="{{archivo.archivo.url}}" target="_blank" class="{%if documento.archivo_set.all.0.ext == 'pdf'%}show-pdf{%endif%}"><i class="fas {{archivo.extension}}"></i> {{archivo.nombre}}</a>
                       <a href="{{archivo.archivo.url}}" target="_blank"><i class="fas fa-external-link-alt text-success"></i></a>
