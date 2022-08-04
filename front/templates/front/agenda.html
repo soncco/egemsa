@@ -10,6 +10,7 @@
                         <th class="col-md-1">Hora</th>
                         <th>Asunto</th>
                         <th>Lugar</th>
+                        <th>Cuando</th>
                     </tr>
                 </thead>
             {% for agenda in agendas %}
@@ -17,6 +18,7 @@
                     <td>{{agenda.fecha_hora|date:"h:i"}}</td>
                     <td><a href="{% url 'front:evento' agenda.pk %}">{{agenda.asunto}}</a></td>
                     <td>{{agenda.lugar}}</td>
+                    <td>{{agenda.fecha_hora|date:"d M Y"}}</td>
                 </tr>
             {% empty %}
                 <tr>
@@ -30,11 +32,18 @@
             <div class="sidebar">
                 <div class="card card-body bg-light mb-4">
                     <form action="{% url 'front:agenda' actual.pk %}" method="get">
-                        <label for="datepicker">Fecha actual:</label>
+                        <label for="datepicker">Fecha inicial:</label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control dtp" id="datepicker" value="{{fecha|date:"d M Y"}}" required>
                             <input type="hidden" name="fecha" value="{{fecha|date:"U"}}" id="fecha">
-                            <button class="btn btn-info" type="submit"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                        <label for="datepicker">Fecha final:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control dtp" id="datepicker2" value="{{fecha_final|date:"d M Y"}}" required>
+                            <input type="hidden" name="fecha_final" value="{{fecha_final|date:"U"}}" id="fecha_final">
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-info" type="submit">Buscar</button>
                         </div>
                     </form>
                 </div>
